@@ -1049,7 +1049,6 @@ GameObject:
   - component: {fileID: 617591024}
   - component: {fileID: 617591028}
   - component: {fileID: 617591027}
-  - component: {fileID: 617591030}
   - component: {fileID: 617591029}
   m_Layer: 0
   m_Name: MainCharacter
@@ -1158,28 +1157,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 617591023}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18e0df9ee51b8744fa4e17723b94f112, type: 3}
+  m_Script: {fileID: 11500000, guid: 1aa6b80d18c9540319d61f1c4b99904e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPlayer: 1
-  isEnemy: 0
-  autoAddCollisionController: 1
---- !u!114 &617591030
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 617591023}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b93f577657e32748af45b90dfa3c068, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spriteRenderer: {fileID: 0}
-  isPlayer: 1
-  isEnemy: 0
-  sortingOrderScale: 100
+  visualObject: {fileID: 416262399}
 --- !u!1 &629754719
 GameObject:
   m_ObjectHideFlags: 0
@@ -1919,7 +1900,7 @@ GameObject:
   - component: {fileID: 917152217}
   - component: {fileID: 917152216}
   m_Layer: 0
-  m_Name: CollisionSetupTool
+  m_Name: GameSetupTool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1934,24 +1915,36 @@ MonoBehaviour:
   m_GameObject: {fileID: 917152215}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab06bddf65d0bd54ba79641f54e7da39, type: 3}
+  m_Script: {fileID: 11500000, guid: 40cc501d2c39ffc46ab1c4e2caf7f5d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetObjects:
+  - {fileID: 751334013}
+  - {fileID: 1521582859}
+  - {fileID: 769858679}
+  - {fileID: 723385154}
+  - {fileID: 1483070805}
+  - {fileID: 85870463}
+  - {fileID: 1965976284}
   enemyConfig: {fileID: 11400000, guid: d7c616ca2a58579418fc8626bc5e8c5b, type: 2}
-  autoSetEnemyTag: 1
-  autoAddEnemyController: 1
-  autoAddCollisionController: 1
-  autoSetup2DPhysics: 1
-  colliderType: 0
+  addCollider: 1
+  colliderType: 3
   isTrigger: 1
-  addRigidbody2D: 1
-  rigidbodyType: 2
-  enemyNamePattern: Triangle
-  useContainsMatch: 1
-  manualEnemyList: []
-  autoSetSortingLayer: 1
-  sortingLayerName: Default
-  baseSortingOrder: 0
+  enablePreciseCollider: 1
+  alphaThreshold: 0.1
+  polygonSimplification: 2
+  addRigidbody: 1
+  bodyType: 0
+  freezeRotation: 1
+  addEnemyController: 1
+  setEnemyTag: 1
+  addCollisionController: 1
+  markAsEnemy: 1
+  enableManualLayering: 1
+  layerInterval: 1000
+  baseLayerPriority: 0
+  searchChildrenOnly: 1
+  excludeConfiguredObjects: 1
 --- !u!4 &917152217
 Transform:
   m_ObjectHideFlags: 0
@@ -2293,9 +2286,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aa6c0034369b764a87caea24c893f29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minPlayerEnemyDistance: 0.8
-  sortingOrderScale: 100
-  positionCorrectionSmoothing: 0.1
 --- !u!1 &1014723761
 GameObject:
   m_ObjectHideFlags: 0
@@ -3353,7 +3343,7 @@ Transform:
   m_GameObject: {fileID: 1521582859}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.9561163, y: -0.5312362, z: -2}
+  m_LocalPosition: {x: 0.47, y: -1.44, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3400,12 +3390,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b362c2a7632a3d64fb673f6eddbb2735, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 197ebf70688c06f49bbbf4a8159582c7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 38.399998, y: 21.599998}
+  m_Size: {x: 36.61, y: 19.788706}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
