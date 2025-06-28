@@ -255,7 +255,7 @@ namespace Tools.UI
         {
             if (imageComponent != null)
             {
-                LeanTween.alpha(rectTransform, 1f, duration);
+                StartCoroutine(FadeCoroutine(imageComponent.color.a, 1f, duration));
             }
         }
         
@@ -266,7 +266,7 @@ namespace Tools.UI
         {
             if (imageComponent != null)
             {
-                LeanTween.alpha(rectTransform, 0f, duration);
+                StartCoroutine(FadeCoroutine(imageComponent.color.a, 0f, duration));
             }
         }
         
@@ -277,7 +277,7 @@ namespace Tools.UI
         {
             if (rectTransform != null)
             {
-                LeanTween.scale(rectTransform, targetScale, duration);
+                StartCoroutine(ScaleCoroutine(rectTransform.localScale, targetScale, duration));
             }
         }
         
