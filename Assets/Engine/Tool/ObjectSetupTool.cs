@@ -31,6 +31,9 @@ namespace FartGame
         [Tooltip("Enemy对象关键词")]
         public List<string> enemyKeywords = new List<string> { "enemy", "敌人", "monster", "boss", "npc", "mob" };
         
+        [Tooltip("Floor对象关键词")]
+        public List<string> floorKeywords = new List<string> { "floor", "地板", "ground", "platform", "地面", "平台" };
+        
         [Header("强制类型设定")]
         [Tooltip("强制设置为特定类型（覆盖自动识别）")]
         public ObjectType forceObjectType = ObjectType.Auto;
@@ -51,7 +54,10 @@ namespace FartGame
         public ColliderType playerColliderType = ColliderType.Box;
         
         [Tooltip("Player使用Trigger")]
-        public bool playerIsTrigger = false;
+        public bool playerIsTrigger = true;
+        
+        [Tooltip("Player Rigidbody类型")]
+        public RigidbodyType2D playerBodyType = RigidbodyType2D.Kinematic;
         
         [Tooltip("添加PlayerController")]
         public bool addPlayerController = true;
@@ -61,7 +67,7 @@ namespace FartGame
         public ColliderType backgroundColliderType = ColliderType.Box;
         
         [Tooltip("Background使用Trigger")]
-        public bool backgroundIsTrigger = false;
+        public bool backgroundIsTrigger = true;
         
         [Tooltip("Background Rigidbody类型")]
         public RigidbodyType2D backgroundBodyType = RigidbodyType2D.Static;
@@ -82,6 +88,16 @@ namespace FartGame
         [Tooltip("添加战斗交互组件")]
         public bool addBattleInteraction = true;
         
+        [Header("Floor专用设置")]
+        [Tooltip("Floor碰撞体类型（强制使用Polygon以精确贴合透明边界）")]
+        public ColliderType floorColliderType = ColliderType.Polygon;
+        
+        [Tooltip("Floor使用Trigger")]
+        public bool floorIsTrigger = true;
+        
+        [Tooltip("Floor Rigidbody类型")]
+        public RigidbodyType2D floorBodyType = RigidbodyType2D.Static;
+        
         [Header("通用Rigidbody设置")]
         [Tooltip("冻结旋转")]
         public bool freezeRotation = true;
@@ -92,6 +108,9 @@ namespace FartGame
         
         [Tooltip("启用手动分层")]
         public bool enableManualLayering = true;
+        
+        [Tooltip("使用SpriteRenderer的Order in Layer作为LayerPriority")]
+        public bool useSortingOrderAsLayerPriority = true;
         
         [Tooltip("分层间隔")]
         public int layerInterval = 1000;
@@ -115,7 +134,8 @@ namespace FartGame
             Auto,      // 自动识别
             Player,    // 玩家
             Background,// 背景/障碍物
-            Enemy      // 敌人
+            Enemy,     // 敌人
+            Floor      // 地板（仅透明边界碰撞）
         }
         
         public enum ColliderType
@@ -197,6 +217,15 @@ namespace FartGame
                 if (objName.Contains(keyword.ToLower()))
                 {
                     return ObjectType.Player;
+                }
+            }
+            
+            // 检查Floor关键词 (优先级高于Background)
+            foreach (string keyword in floorKeywords)
+            {
+                if (objName.Contains(keyword.ToLower()))
+                {
+                    return ObjectType.Floor;
                 }
             }
             
@@ -323,6 +352,9 @@ namespace FartGame
                 case ObjectType.Enemy:
                     SetupEnemyObject(obj, layerPriority);
                     break;
+                case ObjectType.Floor:
+                    SetupFloorObject(obj, layerPriority);
+                    break;
             }
             
 #if UNITY_EDITOR
@@ -344,8 +376,8 @@ namespace FartGame
                 SetupCollider(obj, playerColliderType, playerIsTrigger);
             }
             
-            // 添加Rigidbody2D (Player通常使用Dynamic或Kinematic)
-            SetupRigidbody(obj, RigidbodyType2D.Dynamic);
+            // 添加Rigidbody2D (使用可配置的类型)
+            SetupRigidbody(obj, playerBodyType);
             
             // 添加PlayerController
             if (addPlayerController)
@@ -421,6 +453,43 @@ namespace FartGame
             if (addCollisionController)
             {
                 SetupCollisionController(obj, layerPriority, false, true);
+            }
+        }
+        
+        /// <summary>
+        /// 设置地板对象
+        /// </summary>
+        private void SetupFloorObject(GameObject obj, int layerPriority)
+        {
+            // 设置标签
+            obj.tag = "Floor";
+            
+            // 强制使用精确多边形碰撞体
+            if (addCollider)
+            {
+                // Floor必须使用Polygon碰撞体以贴合透明边界
+                SetupCollider(obj, ColliderType.Polygon, floorIsTrigger);
+                
+                // 强制启用精确碰撞体
+                SpriteRenderer spriteRenderer = obj.GetComponent<SpriteRenderer>();
+                if (spriteRenderer != null && spriteRenderer.sprite != null)
+                {
+                    SetupPrecisePolygonCollider(obj, spriteRenderer.sprite);
+                    
+                    if (showDetailedLogs)
+                    {
+                        Debug.Log($"为Floor对象 {obj.name} 设置了精确多边形碰撞体");
+                    }
+                }
+            }
+            
+            // 添加Rigidbody2D (Floor通常是Static)
+            SetupRigidbody(obj, floorBodyType);
+            
+            // 添加CollisionController (地板不需要特殊标记)
+            if (addCollisionController)
+            {
+                SetupCollisionController(obj, layerPriority, false, false);
             }
         }
         
@@ -536,13 +605,54 @@ namespace FartGame
             CollisionController controller = obj.AddComponent<CollisionController>();
             controller.isPlayer = isPlayer;
             controller.isEnemy = isEnemy;
-            controller.layerPriority = layerPriority;
             
             // 自动设置SpriteRenderer
             SpriteRenderer spriteRenderer = obj.GetComponent<SpriteRenderer>();
             if (spriteRenderer != null)
             {
                 controller.spriteRenderer = spriteRenderer;
+                
+                // 决定如何设置layerPriority
+                int finalLayerPriority = layerPriority;
+                
+                if (useSortingOrderAsLayerPriority)
+                {
+                    // 使用SpriteRenderer的sortingOrder作为基础
+                    finalLayerPriority = spriteRenderer.sortingOrder;
+                    
+                    // 如果启用了手动分层，在sortingOrder基础上添加偏移
+                    if (enableManualLayering)
+                    {
+                        finalLayerPriority += layerPriority;
+                    }
+                }
+                else if (enableManualLayering)
+                {
+                    // 只使用手动分层的layerPriority
+                    finalLayerPriority = layerPriority;
+                }
+                else
+                {
+                    // 使用基础分层优先级
+                    finalLayerPriority = baseLayerPriority;
+                }
+                
+                controller.layerPriority = finalLayerPriority;
+                
+                if (showDetailedLogs)
+                {
+                    Debug.Log($"为 {obj.name} 设置CollisionController - SortingOrder: {spriteRenderer.sortingOrder}, LayerPriority: {finalLayerPriority}");
+                }
+            }
+            else
+            {
+                // 没有SpriteRenderer时使用传入的layerPriority
+                controller.layerPriority = layerPriority;
+                
+                if (showDetailedLogs)
+                {
+                    Debug.Log($"为 {obj.name} 设置CollisionController (无SpriteRenderer) - LayerPriority: {layerPriority}");
+                }
             }
         }
         
@@ -1072,8 +1182,9 @@ namespace FartGame
                 {
                     setupTool.forceObjectType = ObjectSetupTool.ObjectType.Player;
                     setupTool.addPlayerController = true;
-                    setupTool.playerIsTrigger = false;
+                    setupTool.playerIsTrigger = true;
                     setupTool.playerColliderType = ObjectSetupTool.ColliderType.Box;
+                    setupTool.playerBodyType = RigidbodyType2D.Kinematic;
                     EditorUtility.SetDirty(setupTool);
                 }
                 
@@ -1086,13 +1197,25 @@ namespace FartGame
                     setupTool.enemyColliderType = ObjectSetupTool.ColliderType.Box;
                     EditorUtility.SetDirty(setupTool);
                 }
+                EditorGUILayout.EndHorizontal();
                 
+                EditorGUILayout.BeginHorizontal();
                 if (GUILayout.Button("Background配置"))
                 {
                     setupTool.forceObjectType = ObjectSetupTool.ObjectType.Background;
-                    setupTool.backgroundIsTrigger = false;
+                    setupTool.backgroundIsTrigger = true;
                     setupTool.backgroundBodyType = RigidbodyType2D.Static;
                     setupTool.backgroundColliderType = ObjectSetupTool.ColliderType.Box;
+                    EditorUtility.SetDirty(setupTool);
+                }
+                
+                if (GUILayout.Button("Floor配置"))
+                {
+                    setupTool.forceObjectType = ObjectSetupTool.ObjectType.Floor;
+                    setupTool.floorIsTrigger = true;
+                    setupTool.floorBodyType = RigidbodyType2D.Static;
+                    setupTool.floorColliderType = ObjectSetupTool.ColliderType.Polygon;
+                    setupTool.enablePreciseCollider = true;
                     EditorUtility.SetDirty(setupTool);
                 }
                 EditorGUILayout.EndHorizontal();
@@ -1135,6 +1258,7 @@ namespace FartGame
                 case ObjectSetupTool.ObjectType.Player: return "🎮";
                 case ObjectSetupTool.ObjectType.Enemy: return "👾";
                 case ObjectSetupTool.ObjectType.Background: return "🏗️";
+                case ObjectSetupTool.ObjectType.Floor: return "🟫";
                 default: return "❓";
             }
         }
