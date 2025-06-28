@@ -952,7 +952,7 @@ namespace FartGame
 /// <summary>
 /// ObjectSetupTool的自定义编辑器界面
 /// </summary>
-[CustomEditor(typeof(ObjectSetupTool)]
+[CustomEditor(typeof(ObjectSetupTool))]
 public class ObjectSetupToolEditor : Editor
 {
     public override void OnInspectorGUI()
