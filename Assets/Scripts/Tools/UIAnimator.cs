@@ -390,6 +390,47 @@ namespace Tools.UI
             imageComponent.preserveAspect = preserveAspect;
         }
         
+        private System.Collections.IEnumerator FadeCoroutine(float fromAlpha, float toAlpha, float duration)
+        {
+            float elapsedTime = 0f;
+            Color originalColor = imageComponent.color;
+            
+            while (elapsedTime < duration)
+            {
+                elapsedTime += Time.unscaledDeltaTime;
+                float t = elapsedTime / duration;
+                
+                Color newColor = originalColor;
+                newColor.a = Mathf.Lerp(fromAlpha, toAlpha, t);
+                imageComponent.color = newColor;
+                
+                yield return null;
+            }
+            
+            // 确保最终值正确
+            Color finalColor = originalColor;
+            finalColor.a = toAlpha;
+            imageComponent.color = finalColor;
+        }
+        
+        private System.Collections.IEnumerator ScaleCoroutine(Vector3 fromScale, Vector3 toScale, float duration)
+        {
+            float elapsedTime = 0f;
+            
+            while (elapsedTime < duration)
+            {
+                elapsedTime += Time.unscaledDeltaTime;
+                float t = elapsedTime / duration;
+                
+                rectTransform.localScale = Vector3.Lerp(fromScale, toScale, t);
+                
+                yield return null;
+            }
+            
+            // 确保最终值正确
+            rectTransform.localScale = toScale;
+        }
+        
         #endregion
         
         #region 公共查询方法
