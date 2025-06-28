@@ -9,9 +9,7 @@ namespace FartGame
         public BindableProperty<float> FartValue = new BindableProperty<float>(100f);
         public BindableProperty<float> MoveSpeed = new BindableProperty<float>(5f);
         public BindableProperty<float> BodySize = new BindableProperty<float>(1f);
-        public BindableProperty<Vector3> Position = new BindableProperty<Vector3>(Vector3.zero);
-        public BindableProperty<bool> IsFumeMode = new BindableProperty<bool>(false);
-        
+        public BindableProperty<Vector2> Position = new BindableProperty<Vector2>(Vector2.zero);
         // 计算属性
         public float InfluenceRadius => BodySize.Value * 2f;
         
