@@ -9,6 +9,7 @@ namespace FartGame
         private GameModel mGameModel;
         private Rigidbody2D mRigidbody;
         private Collider2D mCollider;
+        private CollisionController mCollisionController;
         
         [Header("Visual References")]
         public GameObject visualObject; // 玩家的视觉表现对象
@@ -19,6 +20,19 @@ namespace FartGame
             mGameModel = this.GetModel<GameModel>();
             mRigidbody = GetComponent<Rigidbody2D>();
             mCollider = GetComponent<Collider2D>();
+            mCollisionController = GetComponent<CollisionController>();
+            
+            // 如果没有CollisionController，自动添加并配置
+            if (mCollisionController == null)
+            {
+                mCollisionController = gameObject.AddComponent<CollisionController>();
+                mCollisionController.isPlayer = true;
+                mCollisionController.spriteRenderer = GetComponent<SpriteRenderer>();
+                if (mCollisionController.spriteRenderer == null && visualObject != null)
+                {
+                    mCollisionController.spriteRenderer = visualObject.GetComponent<SpriteRenderer>();
+                }
+            }
             
             // 如果没有指定visualObject，默认使用自身
             if (visualObject == null)
@@ -79,19 +93,24 @@ namespace FartGame
             float horizontal = Input.GetAxis("Horizontal");
             float vertical = Input.GetAxis("Vertical");
             
-            // 垂直速度是水平速度的一半
-            // vertical *= 0.5f;
-            
             Vector3 movement = new Vector3(horizontal, vertical, 0);
             movement = movement.normalized * mModel.MoveSpeed.Value * Time.deltaTime;
             
+            Vector3 targetPosition = transform.position + movement;
+            
+            // 使用CollisionManager检查和修正位置
+            if (CollisionManager.Instance != null)
+            {
+                targetPosition = CollisionManager.Instance.GetCorrectedPlayerPosition(targetPosition);
+            }
+            
             if (mRigidbody != null)
             {
-                mRigidbody.MovePosition((Vector2)(transform.position + movement));
+                mRigidbody.MovePosition((Vector2)targetPosition);
             }
             else
             {
-                transform.position += movement;
+                transform.position = targetPosition;
             }
             
             // 更新位置到Model

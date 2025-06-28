@@ -15,6 +15,7 @@ namespace FartGame
         
         private bool isDefeated = false;
         private FartSystem mFartSystem;
+        private CollisionController mCollisionController;
         
         // 当前耐力值的公共只读属性
         public float CurrentStamina => currentStamina;
@@ -23,6 +24,15 @@ namespace FartGame
         {
             // 初始化
             mFartSystem = this.GetSystem<FartSystem>();
+            mCollisionController = GetComponent<CollisionController>();
+            
+            // 如果没有CollisionController，自动添加并配置
+            if (mCollisionController == null)
+            {
+                mCollisionController = gameObject.AddComponent<CollisionController>();
+                mCollisionController.isEnemy = true;
+                mCollisionController.spriteRenderer = GetComponent<SpriteRenderer>();
+            }
             
             if (enemyConfig != null)
             {
@@ -66,6 +76,12 @@ namespace FartGame
             currentStamina = 0f;
             isDefeated = true;
             
+            // 通知CollisionManager敌人被击败
+            if (CollisionManager.Instance != null)
+            {
+                CollisionManager.Instance.OnEnemyDefeated(this);
+            }
+            
             // 可以在这里添加视觉效果，比如改变材质、播放动画等
             Debug.Log($"Enemy {gameObject.name} stamina cleared!");
         }
@@ -83,6 +99,12 @@ namespace FartGame
             {
                 currentStamina = enemyConfig.initialStamina;
                 isDefeated = false;
+                
+                // 重新注册到CollisionManager
+                if (CollisionManager.Instance != null)
+                {
+                    CollisionManager.Instance.OnEnemySpawned(this);
+                }
             }
         }
         
