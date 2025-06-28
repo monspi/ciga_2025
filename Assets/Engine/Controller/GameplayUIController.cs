@@ -1,17 +1,18 @@
 using QFramework;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 namespace FartGame
 {
     public class GameplayUIController : MonoBehaviour, IController
     {
         [Header("UI References")]
-        public Text fartValueText;
-        public Text modeText;
+        public TextMeshProUGUI fartValueText;
+        public TextMeshProUGUI modeText;
         public Slider fartValueSlider;
         public Image bodySizeIndicator;
-        public Text speedText;
+        public TextMeshProUGUI speedText;
         public GameObject gameplayPanel;
         
         [Header("UI Settings")]

@@ -1,6 +1,7 @@
 using QFramework;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 namespace FartGame
 {
@@ -9,8 +10,8 @@ namespace FartGame
         [Header("UI References")]
         public Button restartButton;
         public Button mainMenuButton;
-        public Text gameOverReasonText;
-        public Text finalStatsText;
+        public TextMeshProUGUI gameOverReasonText;
+        public TextMeshProUGUI finalStatsText;
         public GameObject gameOverPanel;
         
         private GameModel mGameModel;
