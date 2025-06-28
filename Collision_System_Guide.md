@@ -30,21 +30,30 @@
 - **功能**：自动为对象添加必要的碰撞组件
 - **使用**：在Awake时自动执行设置
 
-### 4. CollisionSetupTool
-- **位置**：`Assets/Engine/Tool/CollisionSetupTool.cs`
-- **功能**：编辑器工具，快速设置整个场景的碰撞系统
+### 4. EnemySetupTool
+- **位置**：`Assets/Engine/Tool/EnemySetupTool.cs`
+- **功能**：敌人批量设置工具，专门用于配置敌人对象
+- **特性**：
+  - 批量修改对象标签为"Enemy"
+  - 自动添加和配置EnemyController组件
+  - 统一应用EnemyConfig配置
+  - 自动设置2D物理组件和碰撞控制
 
 ## 快速设置指南
 
-### 方法一：使用设置工具（推荐）
+### 方法一：使用敌人设置工具（推荐）
 
 1. 在场景中创建一个空对象
-2. 添加 `CollisionSetupTool` 组件
-3. 在Inspector中点击"设置所有对象"按钮
-4. 工具会自动：
-   - 创建CollisionManager
-   - 为Player标签对象添加玩家组件
-   - 为Enemy标签对象添加敌人组件
+2. 添加 `EnemySetupTool` 组件
+3. 在Inspector中设置 `EnemyConfig` 配置文件
+4. 点击"查找敌人对象"按钮查找候选对象
+5. 点击"批量设置敌人"按钮完成配置
+6. 工具会自动：
+   - 修改对象标签为"Enemy"
+   - 添加EnemyController组件并应用配置
+   - 添加CollisionController组件
+   - 设置2D物理组件（可选）
+   - 创建CollisionManager（如果不存在）
 
 ### 方法二：手动设置
 
