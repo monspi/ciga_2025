@@ -7,8 +7,8 @@ namespace FartGame
     {
         private PlayerModel mModel;
         private GameModel mGameModel;
-        private Rigidbody mRigidbody;
-        private Collider mCollider;
+        private Rigidbody2D mRigidbody;
+        private Collider2D mCollider;
         
         [Header("Visual References")]
         public GameObject visualObject; // 玩家的视觉表现对象
@@ -17,8 +17,8 @@ namespace FartGame
         {
             mModel = this.GetModel<PlayerModel>();
             mGameModel = this.GetModel<GameModel>();
-            mRigidbody = GetComponent<Rigidbody>();
-            mCollider = GetComponent<Collider>();
+            mRigidbody = GetComponent<Rigidbody2D>();
+            mCollider = GetComponent<Collider2D>();
             
             // 如果没有指定visualObject，默认使用自身
             if (visualObject == null)
@@ -80,14 +80,14 @@ namespace FartGame
             float vertical = Input.GetAxis("Vertical");
             
             // 垂直速度是水平速度的一半
-            vertical *= 0.5f;
+            // vertical *= 0.5f;
             
             Vector3 movement = new Vector3(horizontal, vertical, 0);
             movement = movement.normalized * mModel.MoveSpeed.Value * Time.deltaTime;
             
             if (mRigidbody != null)
             {
-                mRigidbody.MovePosition(transform.position + movement);
+                mRigidbody.MovePosition((Vector2)(transform.position + movement));
             }
             else
             {

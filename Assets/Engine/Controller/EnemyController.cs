@@ -35,9 +35,9 @@ namespace FartGame
             }
         }
         
-        private void OnTriggerStay(Collider other)
+        private void OnTriggerStay2D(Collider2D other)
         {
-            // 检查是否是玩家，且敌人未被击败
+            Debug.Log($"Enemy {gameObject.name} triggered by {other.gameObject.name}");
             if (other.CompareTag("Player") && !isDefeated)
             {
                 // 检查玩家是否在熏模式
@@ -49,10 +49,10 @@ namespace FartGame
                     {
                         // 计算消耗的屁值（可以根据敌人类型调整）
                         float fartConsumption = Mathf.Min(playerFartValue, currentStamina);
-                        
+
                         // 发送消耗玩家屁值的命令
                         this.SendCommand(new ConsumeFartCommand(fartConsumption));
-                        
+
                         // 发送清空敌人耐力的命令
                         this.SendCommand(new ClearEnemyStaminaCommand(this));
                     }

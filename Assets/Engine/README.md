@@ -18,8 +18,8 @@
 1. 创建玩家GameObject
 2. 添加以下组件：
    - `PlayerController.cs`脚本
-   - `Rigidbody`组件（可选）
-   - `Collider`组件
+   - `Rigidbody2D`组件（可选）
+   - `Collider2D`组件（如BoxCollider2D或CircleCollider2D）
 
 ### 3. UI设置
 1. 创建Canvas
