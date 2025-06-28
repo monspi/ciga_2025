@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Animator))]
 public class BaseAnimController : MonoBehaviour
 {
@@ -13,12 +14,12 @@ public class BaseAnimController : MonoBehaviour
         _anim = GetComponent<Animator>();
     }
 
-    public void PauseAllAnim()
+    public void PauseAnim()
     {
         _anim.speed = 0;
     }
 
-    public void RestartAllAnim()
+    public void RestartAnim()
     {
         _anim.speed = 1;
     }
