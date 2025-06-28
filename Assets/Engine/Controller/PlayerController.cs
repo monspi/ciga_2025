@@ -80,7 +80,7 @@ namespace FartGame
             float vertical = Input.GetAxis("Vertical");
             
             // 垂直速度是水平速度的一半
-            vertical *= 0.4f;
+            vertical *= 0.5f;
             
             Vector3 movement = new Vector3(horizontal, 0, vertical);
             
