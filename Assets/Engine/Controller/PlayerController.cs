@@ -51,15 +51,6 @@ namespace FartGame
             {
                 visualObject.transform.localScale = Vector3.one * size;
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
-            
-            // 绑定熏模式碰撞设置
-            mModel.IsFumeMode.RegisterWithInitValue(isFume =>
-            {
-                if (mCollider != null)
-                {
-                    mCollider.isTrigger = isFume;
-                }
-            }).UnRegisterWhenGameObjectDestroyed(gameObject);
         }
         
         void Update()
@@ -74,18 +65,51 @@ namespace FartGame
         
         private void HandleInput()
         {
-            // 空格键切换熏模式
-            if (Input.GetKeyDown(KeyCode.Space))
+            
+        }
+        
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Enemy") && Input.GetKeyDown(KeyCode.Space))
             {
-                Debug.Log("Trigger Mode");
-                this.SendCommand<ToggleFumeModeCommand>();
+                var enemy = other.GetComponent<EnemyController>();
+                if (enemy && !enemy.IsDefeated)
+                {
+                    // 敌人未被击败，触发战斗
+                    TriggerBattle(enemy);
+                }
+                else if (enemy.enemyConfig.enemyType == EnemyType.ResourcePoint && !enemy.IsResourceActive)
+                {
+                    // 资源点已被击败且未激活，触发资源点交互
+                    TriggerResourcePoint(enemy);
+                }
+            }
+        }
+        
+        private void TriggerBattle(EnemyController enemy)
+        {
+            Debug.LogWarning("进入战斗！！！！！！！");
+            var enemyConfig = enemy.enemyConfig;
+            if (enemyConfig == null)
+            {
+                Debug.LogError($"Enemy {gameObject.name} 缺少配置数据，无法启动战斗");
+                return;
             }
             
-            // ESC键暂停游戏
-            if (Input.GetKeyDown(KeyCode.Escape))
+            Debug.Log($"[敌人控制器] 触发战斗 - {enemyConfig.displayName}");
+            this.SendCommand(new StartEnemyBattleCommand(enemy, enemyConfig));
+        }
+
+        private void TriggerResourcePoint(EnemyController enemy)
+        {
+            var enemyConfig = enemy.enemyConfig;
+            if (enemyConfig == null || enemyConfig.enemyType != EnemyType.ResourcePoint)
             {
-                this.SendCommand<PauseGameCommand>();
+                return;
             }
+            
+            Debug.Log($"[敌人控制器] 激活资源点 - {enemyConfig.displayName}");
+            this.SendCommand(new ActivateResourcePointCommand(enemy, enemyConfig.healingRate, enemyConfig.healingDuration));
         }
         
         private void HandleMovement()

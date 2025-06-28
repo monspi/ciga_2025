@@ -146,7 +146,6 @@ namespace FartGame
             {
                 fartValue = playerModel.FartValue.Value,
                 position = playerModel.Position.Value,
-                isInFumeMode = playerModel.IsFumeMode.Value
             };
         }
         

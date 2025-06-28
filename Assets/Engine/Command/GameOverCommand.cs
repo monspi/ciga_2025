@@ -26,8 +26,6 @@ namespace FartGame
             Vector3 playerPosition = playerModel.Position.Value;
             float gameDuration = Time.time; // 简化的游戏时长计算
             
-            // 关闭熏模式
-            playerModel.IsFumeMode.Value = false;
             
             // 切换到游戏结束状态
             gameModel.CurrentGameState.Value = GameState.GameOver;

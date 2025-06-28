@@ -9,9 +9,6 @@ namespace FartGame
             var gameModel = this.GetModel<GameModel>();
             var playerModel = this.GetModel<PlayerModel>();
             
-            // 关闭熏模式
-            playerModel.IsFumeMode.Value = false;
-            
             // 切换到游戏结束状态
             gameModel.CurrentGameState.Value = GameState.GameOver;
             gameModel.IsPaused.Value = false;

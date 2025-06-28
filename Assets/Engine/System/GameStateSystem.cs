@@ -106,7 +106,6 @@ namespace FartGame
         {
             // 游戏结束处理
             var playerModel = this.GetModel<PlayerModel>();
-            playerModel.IsFumeMode.Value = false;
         }
     }
 }
