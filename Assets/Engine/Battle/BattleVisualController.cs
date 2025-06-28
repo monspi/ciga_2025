@@ -48,8 +48,24 @@ namespace FartGame.Battle
                 return;
             }
             
-            // TODO: 实现箭头显示逻辑
-            Debug.Log($"[BattleVisualController] 显示箭头: {direction} at {appearTime:F3}");
+            if (arrowPrefab == null || arrowContainer == null)
+            {
+                Debug.LogWarning("[BattleVisualController] 箭头预制体或容器未设置");
+                return;
+            }
+            
+            // 创建箭头实例
+            GameObject arrow = Instantiate(arrowPrefab, arrowContainer);
+            activeArrows.Add(arrow);
+            
+            // 设置箭头的初始位置（从屏幕右侧开始）
+            Vector3 startPosition = new Vector3(Screen.width * 0.6f, 0, 0);
+            arrow.transform.position = startPosition;
+            
+            // 根据方向设置箭头的旋转或图标
+            SetArrowDirection(arrow, direction);
+            
+            Debug.Log($"[BattleVisualController] 显示箭头: {direction} at {appearTime:F3}，移动速度: {arrowMoveSpeed}");
         }
         
         public void UpdateArrowPositions()
@@ -57,14 +73,26 @@ namespace FartGame.Battle
             if (!isInitialized || timeManager == null)
                 return;
                 
-            // TODO: 实现箭头位置更新逻辑
+            // 实现箭头位置更新逻辑
             double currentTime = timeManager.GetJudgementTime();
             
             foreach (var arrow in activeArrows)
             {
                 if (arrow != null)
                 {
-                    // TODO: 根据时间更新箭头位置
+                    // 根据时间和移动速度更新箭头位置
+                    // 这里使用 arrowMoveSpeed 来控制箭头移动
+                    Vector3 position = arrow.transform.position;
+                    position.x -= arrowMoveSpeed * Time.deltaTime;
+                    arrow.transform.position = position;
+                    
+                    // 如果箭头移出屏幕，销毁它
+                    if (position.x < -Screen.width * 0.6f)
+                    {
+                        Destroy(arrow);
+                        activeArrows.Remove(arrow);
+                        break; // 避免在迭代时修改集合导致的问题
+                    }
                 }
             }
         }
@@ -176,6 +204,26 @@ namespace FartGame.Battle
         }
         
         // === 私有辅助方法 ===
+        private void SetArrowDirection(GameObject arrow, Direction direction)
+        {
+            // 根据方向设置箭头的旋转
+            switch (direction)
+            {
+                case Direction.Up:
+                    arrow.transform.rotation = Quaternion.Euler(0, 0, 0);
+                    break;
+                case Direction.Down:
+                    arrow.transform.rotation = Quaternion.Euler(0, 0, 180);
+                    break;
+                case Direction.Left:
+                    arrow.transform.rotation = Quaternion.Euler(0, 0, 90);
+                    break;
+                case Direction.Right:
+                    arrow.transform.rotation = Quaternion.Euler(0, 0, -90);
+                    break;
+            }
+        }
+        
         private void ClearActiveArrows()
         {
             foreach (var arrow in activeArrows)
