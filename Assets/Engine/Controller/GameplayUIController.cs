@@ -9,7 +9,6 @@ namespace FartGame
     {
         [Header("UI References")]
         public Text fartValueText;
-        public Text modeText;
         public Slider fartValueSlider;
         public Image bodySizeIndicator;
         public Text speedText;
@@ -54,15 +53,6 @@ namespace FartGame
                 }).UnRegisterWhenGameObjectDestroyed(gameObject);
             }
             
-            // 绑定模式显示
-            if (modeText != null)
-            {
-                mPlayerModel.IsFumeMode.RegisterWithInitValue(isFume =>
-                {
-                    modeText.text = isFume ? "熏模式" : "普通模式";
-                    modeText.color = isFume ? Color.red : Color.white;
-                }).UnRegisterWhenGameObjectDestroyed(gameObject);
-            }
             
             // 绑定体型指示器
             if (bodySizeIndicator != null)

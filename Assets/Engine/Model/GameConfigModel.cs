@@ -11,7 +11,7 @@ namespace FartGame
         public float InitialBodySize = 1f;
         
         // 屁值消耗配置
-        public float FartConsumptionRate = 50f; // 每秒消耗的屁值
+        public float FartConsumptionRate = 0.2f; // 每秒消耗的屁值
         public float MinFartValue = 0f;
         public float MaxFartValue = 1000f;
         

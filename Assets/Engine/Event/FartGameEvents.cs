@@ -9,17 +9,6 @@ namespace FartGame
         public GameState NewState;
     }
     
-    // 熏模式状态变化事件
-    public struct FumeModeChangedEvent
-    {
-        public bool IsActive;
-    }
-    
-    // 屁值耗尽事件
-    public struct FartDepletedEvent
-    {
-        // 可以添加额外信息，如耗尽时的位置等
-    }
     
     // 游戏结束原因枚举
     public enum GameOverReason

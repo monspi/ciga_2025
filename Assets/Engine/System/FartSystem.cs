@@ -23,9 +23,6 @@ namespace FartGame
             mPlayerModel.MoveSpeed.Value = mConfig.BaseMoveSpeed;
             mPlayerModel.BodySize.Value = mConfig.InitialBodySize;
             
-            // 监听熏模式变化
-            this.RegisterEvent<FumeModeChangedEvent>(OnFumeModeChanged);
-            
             // 监听游戏状态变化，记录游戏开始时间
             this.RegisterEvent<GameStateChangedEvent>(OnGameStateChanged);
             
@@ -45,10 +42,7 @@ namespace FartGame
             mLastUpdateTime = currentTime;
             
             // 熏模式下持续消耗屁值
-            if (mPlayerModel.IsFumeMode.Value)
-            {
-                ConsumeFart(mConfig.FartConsumptionRate * deltaTime);
-            }
+            ConsumeFart(mConfig.FartConsumptionRate * deltaTime);
             
             // 处理资源点回复效果
             UpdateResourcePointHealing(deltaTime);
@@ -85,28 +79,12 @@ namespace FartGame
             }
         }
         
-        private void OnFumeModeChanged(FumeModeChangedEvent e)
-        {
-            if (e.IsActive)
-            {
-                // 开启熏模式时重置计时器
-                mLastUpdateTime = Time.time;
-            }
-        }
         
         private void OnFartValueChanged(float newValue)
         {
             // 更新体型和速度
             mPlayerModel.BodySize.Value = mConfig.CalculateBodySize(newValue);
             mPlayerModel.MoveSpeed.Value = mConfig.CalculateMoveSpeed(newValue);
-            
-            // 检查屁值是否耗尽
-            if (newValue <= mConfig.MinFartValue && mPlayerModel.IsFumeMode.Value)
-            {
-                // 屁值耗尽，自动关闭熏模式
-                mPlayerModel.IsFumeMode.Value = false;
-                this.SendEvent<FartDepletedEvent>();
-            }
             
             // 检查游戏结束条件：屁值低于阈值
             if (newValue <= mConfig.GameOverFartThreshold && mGameModel.CurrentGameState.Value == GameState.Gameplay)
@@ -135,13 +113,6 @@ namespace FartGame
             mPlayerModel.MoveSpeed.Value = mConfig.BaseMoveSpeed;
             mPlayerModel.BodySize.Value = mConfig.InitialBodySize;
             mPlayerModel.Position.Value = UnityEngine.Vector3.zero;
-            mPlayerModel.IsFumeMode.Value = false;
-        }
-        
-        // 获取玩家熏模式状态的公共接口
-        public bool IsPlayerInFumeMode()
-        {
-            return mPlayerModel.IsFumeMode.Value;
         }
         
         // 获取玩家当前屁值的公共接口
