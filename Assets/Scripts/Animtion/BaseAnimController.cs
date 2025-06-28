@@ -23,4 +23,19 @@ public class BaseAnimController : MonoBehaviour
     {
         _anim.speed = 1;
     }
+
+    public virtual void PlayAnim(string animName)
+    {
+
+    }
+
+    public virtual void PlayAnim(FullNpcAnimState animState)
+    {
+
+    }
+
+    public virtual void PlayAnim(NpcAnimState animState)
+    {
+    }
+
 }

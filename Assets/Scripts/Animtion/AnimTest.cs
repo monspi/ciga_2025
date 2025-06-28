@@ -9,23 +9,23 @@ public class AnimTest : MonoBehaviour
         {
             if (TryGetComponent<ShitAnimController>(out var shitAnimController))
             {
-                shitAnimController.PlayAnim(ShitState.Start);
+                shitAnimController.PlayAnim(FullNpcAnimState.Start);
             }
             else if (TryGetComponent<Npc1AnimController>(out var npc1AnimController))
             {
-                npc1AnimController.PlayAnim(Npc1State.Speak);
+                npc1AnimController.PlayAnim(FullNpcAnimState.Speak);
             }
             else if (TryGetComponent<Npc4AnimController>(out var npc4AnimController))
             {
-                npc4AnimController.PlayAnim(Npc4State.Idle);
+                npc4AnimController.PlayAnim(FullNpcAnimState.Idle);
             }
             else if (TryGetComponent<Npc5AnimController>(out var npc5AnimController))
             {
-                npc5AnimController.PlayAnim(Npc5State.Idle);
+                npc5AnimController.PlayAnim(FullNpcAnimState.Idle);
             }
             else if (TryGetComponent<BossAnimController>(out var bossAnimController))
             {
-                bossAnimController.PlayAnim(BossState.Speak);
+                bossAnimController.PlayAnim(FullNpcAnimState.Speak);
             }
         }
         
@@ -33,23 +33,23 @@ public class AnimTest : MonoBehaviour
         {
             if (TryGetComponent<ShitAnimController>(out var shitAnimController))
             {
-                shitAnimController.PlayAnim(ShitState.Die);
+                shitAnimController.PlayAnim(FullNpcAnimState.Die);
             }
             else if (TryGetComponent<Npc1AnimController>(out var npc1AnimController))
             {
-                npc1AnimController.PlayAnim(Npc1State.Fart);
+                npc1AnimController.PlayAnim(FullNpcAnimState.Fart);
             }
             else if (TryGetComponent<Npc4AnimController>(out var npc4AnimController))
             {
-                npc4AnimController.PlayAnim(Npc4State.Cry);
+                npc4AnimController.PlayAnim(FullNpcAnimState.Cry);
             }
             else if (TryGetComponent<Npc5AnimController>(out var npc5AnimController))
             {
-                npc5AnimController.PlayAnim(Npc5State.Frown);
+                npc5AnimController.PlayAnim(FullNpcAnimState.Frown);
             }
             else if (TryGetComponent<BossAnimController>(out var bossAnimController))
             {
-                bossAnimController.PlayAnim(BossState.Walk);
+                bossAnimController.PlayAnim(FullNpcAnimState.Walk);
             }
         }
     }

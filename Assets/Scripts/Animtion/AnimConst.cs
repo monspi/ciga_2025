@@ -27,3 +27,21 @@ public enum BossState
     Speak,
     Walk,
 }
+
+public enum NpcAnimState
+{
+    Anim1,
+    Anim2
+}
+
+public enum FullNpcAnimState
+{
+    Idle,
+    Fart,
+    Speak,
+    Start,
+    Die,
+    Cry,
+    Frown,
+    Walk
+}

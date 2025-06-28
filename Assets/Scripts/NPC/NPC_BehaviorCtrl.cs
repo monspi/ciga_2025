@@ -14,6 +14,9 @@ public class NPC_BehaviorCtrl : MonoBehaviour
 
     private Vector3 lastPosition; // 上一帧的位置，用于判断是否需要更新渲染顺序
 
+    public BaseAnimController AnimController; // 动画控制器，用于控制NPC的动画播放
+    
+
     private void Awake()
     {
         if (spriteRenderer == null)
@@ -27,6 +30,10 @@ public class NPC_BehaviorCtrl : MonoBehaviour
         if (selfTrans == null)
         {
             selfTrans = transform;
+        }
+        if(AnimController == null)
+        {
+            AnimController = GetComponent<BaseAnimController>();
         }
         HandleSortingOrder();
         lastPosition = selfTrans.position; // 初始化上一帧位置
@@ -58,5 +65,40 @@ public class NPC_BehaviorCtrl : MonoBehaviour
         }
     }
 
+    public void PlayAnim(FullNpcAnimState animStage)
+    {
+        if (AnimController != null)
+        {            
+            AnimController.PlayAnim(animStage.ToString());
+        }
+        else
+        {
+            Debug.LogWarning("NPC_BehaviorCtrl: 没有设置动画控制器", gameObject);
+        }
+    }
+
+    public void PlayAnim(NpcAnimState animStage)
+    {
+        if (AnimController != null)
+        {
+            AnimController.PlayAnim(animStage);
+        }
+        else
+        {
+            Debug.LogWarning("NPC_BehaviorCtrl: 没有设置动画控制器", gameObject);
+        }
+    }
+
+    [ContextMenu("播第一个动画")]
+    public void PlayAnim1()
+    {
+        PlayAnim(NpcAnimState.Anim1);
+    }
+
+    [ContextMenu("播第二个动画")]
+    public void PlayAnim2()
+    {
+        PlayAnim(NpcAnimState.Anim2);
+    }
 
 }

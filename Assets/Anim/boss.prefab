@@ -1,5 +1,72 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6414314982158378885
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1518452225401865715}
+  - component: {fileID: 562321789811811267}
+  - component: {fileID: 4837247828467997583}
+  m_Layer: 0
+  m_Name: "\u4EA4\u4E92\u8303\u56F4"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1518452225401865715
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6414314982158378885}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.28, y: -0.57, z: 0}
+  m_LocalScale: {x: 8.31708, y: 9.793576, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2479328157359200785}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &562321789811811267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6414314982158378885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e272841681f5f2478902e282f6998c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npc_BehaviorCtrl: {fileID: 2416811873629984100}
+--- !u!65 &4837247828467997583
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6414314982158378885}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8812405467021495223
 GameObject:
   m_ObjectHideFlags: 0
@@ -12,7 +79,7 @@ GameObject:
   - component: {fileID: 1173886958513017141}
   - component: {fileID: 4618375674054330997}
   - component: {fileID: 1190778088284241152}
-  - component: {fileID: 4632084708188655902}
+  - component: {fileID: 2416811873629984100}
   m_Layer: 0
   m_Name: boss
   m_TagString: Untagged
@@ -32,7 +99,8 @@ Transform:
   m_LocalPosition: {x: 38.98, y: 31.84, z: -0.27721852}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1518452225401865715}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1173886958513017141
@@ -73,20 +141,20 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1163397271
+  m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 30401558, guid: c5e3c513595f82040adc2571078011bf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 8.5, y: 10.03}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!95 &4618375674054330997
 Animator:
   serializedVersion: 5
@@ -120,7 +188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d5706893a394396aca69272c2803458, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4632084708188655902
+--- !u!114 &2416811873629984100
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -129,6 +197,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8812405467021495223}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8396d2a1891434cb62644470149aa4f, type: 3}
+  m_Script: {fileID: 11500000, guid: e09278e0554b78e438a2fc9636a036da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  npcID: 1010
+  spriteRenderer: {fileID: 0}
+  selfTrans: {fileID: 0}
