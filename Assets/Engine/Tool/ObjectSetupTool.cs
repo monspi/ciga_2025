@@ -946,182 +946,198 @@ namespace FartGame
             Gizmos.DrawWireSphere(transform.position, interactionDistance);
         }
     }
-}
 
 #if UNITY_EDITOR
-/// <summary>
-/// ObjectSetupTool的自定义编辑器界面
-/// </summary>
-[CustomEditor(typeof(ObjectSetupTool))]
-public class ObjectSetupToolEditor : Editor
-{
-    public override void OnInspectorGUI()
+    /// <summary>
+    /// ObjectSetupTool的自定义编辑器界面
+    /// </summary>
+    [CustomEditor(typeof(ObjectSetupTool))]
+    [CanEditMultipleObjects]
+    public class ObjectSetupToolEditor : Editor
     {
-        DrawDefaultInspector();
-        
-        ObjectSetupTool setupTool = (ObjectSetupTool)target;
-        
-        EditorGUILayout.Space(10);
-        EditorGUILayout.LabelField("快速操作", EditorStyles.boldLabel);
-        
-        EditorGUILayout.BeginHorizontal();
-        
-        // 查找候选对象按钮
-        if (GUILayout.Button("🔍 查找候选对象", GUILayout.Height(30)))
+        public override void OnInspectorGUI()
         {
-            setupTool.FindCandidateObjects();
-            EditorUtility.SetDirty(setupTool);
-        }
-        
-        // 批量设置对象按钮
-        GUI.enabled = setupTool.targetObjects.Count > 0;
-        if (GUILayout.Button("⚙️ 批量设置对象", GUILayout.Height(30)))
-        {
-            if (EditorUtility.DisplayDialog("确认操作", 
-                $"即将为 {setupTool.targetObjects.Count} 个对象设置组件，确定继续吗？", 
-                "确定", "取消"))
-            {
-                setupTool.BatchSetupObjects();
-                EditorUtility.SetDirty(setupTool);
-            }
-        }
-        GUI.enabled = true;
-        
-        EditorGUILayout.EndHorizontal();
-        
-        EditorGUILayout.BeginHorizontal();
-        
-        // 设置选中对象按钮
-        GUI.enabled = Selection.gameObjects.Length > 0;
-        if (GUILayout.Button("🎯 设置选中对象", GUILayout.Height(30)))
-        {
-            if (EditorUtility.DisplayDialog("确认操作", 
-                $"即将为 {Selection.gameObjects.Length} 个选中对象设置组件，确定继续吗？", 
-                "确定", "取消"))
-            {
-                setupTool.SetupSelectedObject();
-                EditorUtility.SetDirty(setupTool);
-            }
-        }
-        GUI.enabled = true;
-        
-        // 清理所有配置按钮
-        GUI.enabled = setupTool.targetObjects.Count > 0;
-        GUI.color = Color.red;
-        if (GUILayout.Button("🗑️ 清理所有配置", GUILayout.Height(30)))
-        {
-            if (EditorUtility.DisplayDialog("警告", 
-                $"即将清理 {setupTool.targetObjects.Count} 个对象的所有配置，此操作不可撤销！确定继续吗？", 
-                "确定", "取消"))
-            {
-                setupTool.CleanupAllObjects();
-                EditorUtility.SetDirty(setupTool);
-            }
-        }
-        GUI.color = Color.white;
-        GUI.enabled = true;
-        
-        EditorGUILayout.EndHorizontal();
-        
-        // 显示统计信息
-        EditorGUILayout.Space(10);
-        EditorGUILayout.LabelField("统计信息", EditorStyles.boldLabel);
-        
-        EditorGUILayout.BeginVertical("box");
-        EditorGUILayout.LabelField($"候选对象数量: {setupTool.targetObjects.Count}");
-        EditorGUILayout.LabelField($"选中对象数量: {Selection.gameObjects.Length}");
-        
-        if (setupTool.targetObjects.Count > 0)
-        {
-            EditorGUILayout.Space(5);
-            EditorGUILayout.LabelField("对象类型预览:", EditorStyles.miniBoldLabel);
+            // 启用多对象编辑支持
+            serializedObject.Update();
             
-            Dictionary<ObjectSetupTool.ObjectType, int> typeCount = new Dictionary<ObjectSetupTool.ObjectType, int>();
+            DrawDefaultInspector();
             
-            foreach (var obj in setupTool.targetObjects)
+            // 只有在单选对象时才显示按钮
+            if (targets.Length == 1)
             {
-                if (obj == null) continue;
+                ObjectSetupTool setupTool = (ObjectSetupTool)target;
                 
-                ObjectSetupTool.ObjectType objType = GetObjectType(setupTool, obj);
-                if (!typeCount.ContainsKey(objType))
-                    typeCount[objType] = 0;
-                typeCount[objType]++;
+                EditorGUILayout.Space(10);
+                EditorGUILayout.LabelField("快速操作", EditorStyles.boldLabel);
+                
+                EditorGUILayout.BeginHorizontal();
+                
+                // 查找候选对象按钮
+                if (GUILayout.Button("🔍 查找候选对象", GUILayout.Height(30)))
+                {
+                    setupTool.FindCandidateObjects();
+                    EditorUtility.SetDirty(setupTool);
+                }
+                
+                // 批量设置对象按钮
+                GUI.enabled = setupTool.targetObjects.Count > 0;
+                if (GUILayout.Button("⚙️ 批量设置对象", GUILayout.Height(30)))
+                {
+                    if (EditorUtility.DisplayDialog("确认操作", 
+                        $"即将为 {setupTool.targetObjects.Count} 个对象设置组件，确定继续吗？", 
+                        "确定", "取消"))
+                    {
+                        setupTool.BatchSetupObjects();
+                        EditorUtility.SetDirty(setupTool);
+                    }
+                }
+                GUI.enabled = true;
+                
+                EditorGUILayout.EndHorizontal();
+                
+                EditorGUILayout.BeginHorizontal();
+                
+                // 设置选中对象按钮
+                GUI.enabled = Selection.gameObjects.Length > 0;
+                if (GUILayout.Button("🎯 设置选中对象", GUILayout.Height(30)))
+                {
+                    if (EditorUtility.DisplayDialog("确认操作", 
+                        $"即将为 {Selection.gameObjects.Length} 个选中对象设置组件，确定继续吗？", 
+                        "确定", "取消"))
+                    {
+                        setupTool.SetupSelectedObject();
+                        EditorUtility.SetDirty(setupTool);
+                    }
+                }
+                GUI.enabled = true;
+                
+                // 清理所有配置按钮
+                GUI.enabled = setupTool.targetObjects.Count > 0;
+                GUI.color = Color.red;
+                if (GUILayout.Button("🗑️ 清理所有配置", GUILayout.Height(30)))
+                {
+                    if (EditorUtility.DisplayDialog("警告", 
+                        $"即将清理 {setupTool.targetObjects.Count} 个对象的所有配置，此操作不可撤销！确定继续吗？", 
+                        "确定", "取消"))
+                    {
+                        setupTool.CleanupAllObjects();
+                        EditorUtility.SetDirty(setupTool);
+                    }
+                }
+                GUI.color = Color.white;
+                GUI.enabled = true;
+                
+                EditorGUILayout.EndHorizontal();
+                
+                // 显示统计信息
+                EditorGUILayout.Space(10);
+                EditorGUILayout.LabelField("统计信息", EditorStyles.boldLabel);
+                
+                EditorGUILayout.BeginVertical("box");
+                EditorGUILayout.LabelField($"候选对象数量: {setupTool.targetObjects.Count}");
+                EditorGUILayout.LabelField($"选中对象数量: {Selection.gameObjects.Length}");
+                
+                if (setupTool.targetObjects.Count > 0)
+                {
+                    EditorGUILayout.Space(5);
+                    EditorGUILayout.LabelField("对象类型预览:", EditorStyles.miniBoldLabel);
+                    
+                    Dictionary<ObjectSetupTool.ObjectType, int> typeCount = new Dictionary<ObjectSetupTool.ObjectType, int>();
+                    
+                    foreach (var obj in setupTool.targetObjects)
+                    {
+                        if (obj == null) continue;
+                        
+                        ObjectSetupTool.ObjectType objType = GetObjectType(setupTool, obj);
+                        if (!typeCount.ContainsKey(objType))
+                            typeCount[objType] = 0;
+                        typeCount[objType]++;
+                    }
+                    
+                    foreach (var kvp in typeCount)
+                    {
+                        EditorGUILayout.LabelField($"  {GetTypeIcon(kvp.Key)} {kvp.Key}: {kvp.Value} 个");
+                    }
+                }
+                EditorGUILayout.EndVertical();
+                
+                // 快速配置区域
+                EditorGUILayout.Space(10);
+                EditorGUILayout.LabelField("快速配置", EditorStyles.boldLabel);
+                
+                EditorGUILayout.BeginVertical("box");
+                
+                EditorGUILayout.BeginHorizontal();
+                if (GUILayout.Button("Player配置"))
+                {
+                    setupTool.forceObjectType = ObjectSetupTool.ObjectType.Player;
+                    setupTool.addPlayerController = true;
+                    setupTool.playerIsTrigger = false;
+                    setupTool.playerColliderType = ObjectSetupTool.ColliderType.Box;
+                    EditorUtility.SetDirty(setupTool);
+                }
+                
+                if (GUILayout.Button("Enemy配置"))
+                {
+                    setupTool.forceObjectType = ObjectSetupTool.ObjectType.Enemy;
+                    setupTool.addEnemyController = true;
+                    setupTool.addBattleInteraction = true;
+                    setupTool.enemyIsTrigger = true;
+                    setupTool.enemyColliderType = ObjectSetupTool.ColliderType.Box;
+                    EditorUtility.SetDirty(setupTool);
+                }
+                
+                if (GUILayout.Button("Background配置"))
+                {
+                    setupTool.forceObjectType = ObjectSetupTool.ObjectType.Background;
+                    setupTool.backgroundIsTrigger = false;
+                    setupTool.backgroundBodyType = RigidbodyType2D.Static;
+                    setupTool.backgroundColliderType = ObjectSetupTool.ColliderType.Box;
+                    EditorUtility.SetDirty(setupTool);
+                }
+                EditorGUILayout.EndHorizontal();
+                
+                if (GUILayout.Button("重置为自动识别"))
+                {
+                    setupTool.forceObjectType = ObjectSetupTool.ObjectType.Auto;
+                    EditorUtility.SetDirty(setupTool);
+                }
+                
+                EditorGUILayout.EndVertical();
+            }
+            else
+            {
+                // 多对象选择时显示提示
+                EditorGUILayout.Space(10);
+                EditorGUILayout.HelpBox("多对象编辑时不显示自定义按钮。请选择单个ObjectSetupTool对象来使用按钮功能。", MessageType.Info);
             }
             
-            foreach (var kvp in typeCount)
+            serializedObject.ApplyModifiedProperties();
+        }
+        
+        /// <summary>
+        /// 获取对象类型（使用反射调用私有方法）
+        /// </summary>
+        private ObjectSetupTool.ObjectType GetObjectType(ObjectSetupTool setupTool, GameObject obj)
+        {
+            var method = typeof(ObjectSetupTool).GetMethod("IdentifyObjectType", 
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            return (ObjectSetupTool.ObjectType)method.Invoke(setupTool, new object[] { obj });
+        }
+        
+        /// <summary>
+        /// 获取类型图标
+        /// </summary>
+        private string GetTypeIcon(ObjectSetupTool.ObjectType type)
+        {
+            switch (type)
             {
-                EditorGUILayout.LabelField($"  {GetTypeIcon(kvp.Key)} {kvp.Key}: {kvp.Value} 个");
+                case ObjectSetupTool.ObjectType.Player: return "🎮";
+                case ObjectSetupTool.ObjectType.Enemy: return "👾";
+                case ObjectSetupTool.ObjectType.Background: return "🏗️";
+                default: return "❓";
             }
         }
-        EditorGUILayout.EndVertical();
-        
-        // 快速配置区域
-        EditorGUILayout.Space(10);
-        EditorGUILayout.LabelField("快速配置", EditorStyles.boldLabel);
-        
-        EditorGUILayout.BeginVertical("box");
-        
-        EditorGUILayout.BeginHorizontal();
-        if (GUILayout.Button("Player配置"))
-        {
-            setupTool.forceObjectType = ObjectSetupTool.ObjectType.Player;
-            setupTool.addPlayerController = true;
-            setupTool.playerIsTrigger = false;
-            setupTool.playerColliderType = ObjectSetupTool.ColliderType.Box;
-            EditorUtility.SetDirty(setupTool);
-        }
-        
-        if (GUILayout.Button("Enemy配置"))
-        {
-            setupTool.forceObjectType = ObjectSetupTool.ObjectType.Enemy;
-            setupTool.addEnemyController = true;
-            setupTool.addBattleInteraction = true;
-            setupTool.enemyIsTrigger = true;
-            setupTool.enemyColliderType = ObjectSetupTool.ColliderType.Box;
-            EditorUtility.SetDirty(setupTool);
-        }
-        
-        if (GUILayout.Button("Background配置"))
-        {
-            setupTool.forceObjectType = ObjectSetupTool.ObjectType.Background;
-            setupTool.backgroundIsTrigger = false;
-            setupTool.backgroundBodyType = RigidbodyType2D.Static;
-            setupTool.backgroundColliderType = ObjectSetupTool.ColliderType.Box;
-            EditorUtility.SetDirty(setupTool);
-        }
-        EditorGUILayout.EndHorizontal();
-        
-        if (GUILayout.Button("重置为自动识别"))
-        {
-            setupTool.forceObjectType = ObjectSetupTool.ObjectType.Auto;
-            EditorUtility.SetDirty(setupTool);
-        }
-        
-        EditorGUILayout.EndVertical();
     }
-    
-    /// <summary>
-    /// 获取对象类型（使用反射调用私有方法）
-    /// </summary>
-    private ObjectSetupTool.ObjectType GetObjectType(ObjectSetupTool setupTool, GameObject obj)
-    {
-        var method = typeof(ObjectSetupTool).GetMethod("IdentifyObjectType", 
-            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-        return (ObjectSetupTool.ObjectType)method.Invoke(setupTool, new object[] { obj });
-    }
-    
-    /// <summary>
-    /// 获取类型图标
-    /// </summary>
-    private string GetTypeIcon(ObjectSetupTool.ObjectType type)
-    {
-        switch (type)
-        {
-            case ObjectSetupTool.ObjectType.Player: return "🎮";
-            case ObjectSetupTool.ObjectType.Enemy: return "👾";
-            case ObjectSetupTool.ObjectType.Background: return "🏗️";
-            default: return "❓";
-        }
-    }
-}
 #endif
+}
