@@ -2,16 +2,22 @@
 using System;
 using UnityEngine;
 using System.Collections.Generic;
+using DG.Tweening;
 using SonicBloom.Koreo;
 
 namespace GameLogic.Battle
 {
     public class BattleUIWindow : MonoBehaviour
     {
-        public GameObject piPF;
-        public Koreography graphy;
+        public GameObject missPF;
+        public Transform missParent;
+        
+        private Koreography graphy;
+        private AudioClip clip;
 
-        public AudioClip clip;
+        public Animator _animatorA;
+        public Animator _animatorD;
+        public Animator _animatorNose;
 
         //判定范围
         public float detectOffset = 0.1f;
@@ -36,12 +42,36 @@ namespace GameLogic.Battle
         private int _leftDetectIndex;
         private int _rightDetectIndex;
 
+        private int _maxMissCount;
+        private int _curMissCount;
+        private Action _onSuccess;
+        private Action _onFail;
+        private bool _finish;
+        
+        private CanvasGroup _canvasGroup;
+
         private void Awake()
         {
+            // Init();
+            _canvasGroup = GetComponent<CanvasGroup>();
+        }
+
+        private bool _isInit;
+        private void Init()
+        {
+            _isInit = true;
+            
             _source = GetComponent<AudioSource>();
             _generator = GetComponentInChildren<NoteBehaviorGenerator>();
-            
+
             TransferEvents();
+
+            _curMissCount = 0;
+            _leftDetectIndex = 0;
+            _rightDetectIndex = 0;
+            _leftEmitIndex = 0;
+            _rightEmitIndex = 0;
+            _finish = false;
         }
 
         private void TransferEvents()
@@ -78,15 +108,25 @@ namespace GameLogic.Battle
                 });
             }
         }
-
-        public void Show()
+        
+        public void Show(int songId, int missFailCount, Action onSuccess, Action onFail)
         {
             gameObject.SetActive(true);
-            StartPlay();
+            _canvasGroup.alpha = 0;
+            _canvasGroup.DOFade(1, 0.3f);
+            
+            graphy = BattleController.Inst.GetGraphyByID(songId);
+            clip = BattleController.Inst.GetAudioClipByID(songId);
+            _maxMissCount = missFailCount;
+            _onSuccess = onSuccess;
+            _onFail = onFail;
+            gameObject.SetActive(true);
+            Invoke(nameof(StartPlay), 0.5f);
         }
 
         private void StartPlay()
         {
+            Init();
             _source.clip = clip;
             _source.Play();
             _isStart = true;
@@ -94,12 +134,18 @@ namespace GameLogic.Battle
 
         private void Update()
         {
-            if (!_isStart) return;
+            if (!_isStart || _finish) return;
 
             float time = _source.time + timeOffset;
 
             HandleEmitEvent(time);
             HandleInput(time);
+
+            if (!_source.isPlaying)
+            {
+                Hide(true);
+                _finish = true;
+            }
         }
 
         #region 触发逻辑
@@ -114,7 +160,7 @@ namespace GameLogic.Battle
 
             while (_rightEmitIndex < _noteEventsRight.Count && time >= _noteEventsRight[_rightEmitIndex].emitTime)
             {
-                _noteBehaviorsRight.Add(_generator.GenerateNoteBehavior(_noteEventsLeft[_rightEmitIndex], false));
+                _noteBehaviorsRight.Add(_generator.GenerateNoteBehavior(_noteEventsRight[_rightEmitIndex], false));
                 _rightEmitIndex++;
             }
         }
@@ -125,13 +171,17 @@ namespace GameLogic.Battle
 
         private void HandleInput(float time)
         {
-            _HandleInput(time, KeyCode.A, ref _leftDetectIndex, _noteEventsLeft, _noteBehaviorsLeft);
-            _HandleInput(time, KeyCode.D, ref _rightDetectIndex, _noteEventsRight, _noteBehaviorsRight);
+            _HandleInput(time, ref _leftDetectIndex, true);
+            _HandleInput(time, ref _rightDetectIndex, false);
         }
 
-        private void _HandleInput(float time, KeyCode keyCode, ref int detectIndex, List<NoteEvent> noteEvents,
-            List<NoteBehavior> noteBehaviors)
+        private void _HandleInput(float time, ref int detectIndex, bool isLeft)
         {
+            var keyCode = isLeft ? KeyCode.A : KeyCode.D;
+            var noteEvents = isLeft ? _noteEventsLeft : _noteEventsRight;
+            var noteBehaviors = isLeft ? _noteBehaviorsLeft : _noteBehaviorsRight;
+            var animator = isLeft ? _animatorA : _animatorD;
+            
             //处理miss音符
             while (detectIndex < noteEvents.Count)
             {
@@ -142,6 +192,15 @@ namespace GameLogic.Battle
                     {
                         var behavior = noteBehaviors[detectIndex];
                         behavior.OnMiss();
+                        var go = Instantiate(missPF, missParent);
+                        Vector2 position = isLeft ? _generator.leftDetectTF.position : _generator.rightDetectTF.position;
+                        go.transform.position = position;
+                        _curMissCount++;
+                        _animatorNose.Play("noseInhale");
+                        if (_curMissCount >= _maxMissCount)
+                        {
+                            Hide(false);
+                        }
                     }
 
                     detectIndex++;
@@ -162,9 +221,36 @@ namespace GameLogic.Battle
                         detectIndex++;
                     }
                 }
+                animator.Play("Down");
             }
         }
 
         #endregion
+
+        private void Hide(bool success)
+        {
+            if (_finish) return;
+            
+            _finish = true;
+            _isStart = false;
+            
+            if (success)
+            {
+                _onSuccess?.Invoke();
+            }
+            else
+            {
+                _onFail?.Invoke();
+            }
+            _source.Stop();
+            
+            Sequence seq = DOTween.Sequence();
+            seq.AppendInterval(0.5f);
+            seq.Append(_canvasGroup.DOFade(0, 0.5f));
+            seq.AppendCallback(() =>
+            {
+                
+            });
+        }
     }
 }

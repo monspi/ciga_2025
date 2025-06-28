@@ -1,10 +1,14 @@
 ﻿
+using System;
+using DG.Tweening;
 using UnityEngine;
 
 namespace GameLogic.Battle
 {
     public class NoteBehavior : MonoBehaviour
     {
+        private CanvasGroup _canvasGroup;
+        private Transform _missParent;
         private Vector2 _velocity;
         private Vector2 _startPos;
         private float _t;
@@ -12,6 +16,11 @@ namespace GameLogic.Battle
         private bool _isMiss;
         private bool _isHit;
         private bool _invokeDestroyFlag;
+
+        private void Awake()
+        {
+            _canvasGroup = GetComponent<CanvasGroup>();
+        }
 
         public virtual void StartMove(Vector2 startPos, Vector2 endPos, float moveDuration)
         {
@@ -25,6 +34,7 @@ namespace GameLogic.Battle
         public virtual void OnMiss()
         {
             _isMiss = true;
+            _canvasGroup.DOFade(0, 0.2f);
         }
 
         public virtual void OnBeginHit()

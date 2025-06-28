@@ -1,4 +1,7 @@
 ﻿using UnityEngine;
+using System;
+using SonicBloom.Koreo;
+using UnityEditor.PackageManager;
 
 namespace GameLogic.Battle
 {
@@ -29,9 +32,21 @@ namespace GameLogic.Battle
 
         [SerializeField] private BattleUIWindow _uiWindow;
 
-        public void StartBattle()
+        private bool _inBattle;
+        
+        public void StartBattle(int songId, int missFailCount, Action onSuccess = null, Action onFail = null)
         {
-            _uiWindow.Show();
+            _uiWindow.Show(songId, missFailCount, onSuccess, onFail);
+        }
+
+        public Koreography GetGraphyByID(int id)
+        {
+            return Resources.Load<Koreography>("Koreography/k" + id);
+        }
+
+        public AudioClip GetAudioClipByID(int id)
+        {
+            return Resources.Load<AudioClip>("Music/m" + id);
         }
     }
 }

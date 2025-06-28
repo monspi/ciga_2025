@@ -14,70 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mEventID: Spread
   mEventList:
-  - mStartSample: 74812
-    mEndSample: 82096
   - mStartSample: 83474
     mEndSample: 88790
-  - mStartSample: 93121
-    mEndSample: 99421
-  - mStartSample: 102178
-    mEndSample: 107493
-  - mStartSample: 111431
-    mEndSample: 119306
-  - mStartSample: 131512
-    mEndSample: 135252
-  - mStartSample: 149427
-    mEndSample: 154743
-  - mStartSample: 168918
-    mEndSample: 172856
-  - mStartSample: 188212
-    mEndSample: 192149
-  - mStartSample: 206915
-    mEndSample: 210656
-  - mStartSample: 225618
-    mEndSample: 229162
-  - mStartSample: 245306
-    mEndSample: 253180
-  - mStartSample: 253574
-    mEndSample: 262827
-  - mStartSample: 263418
-    mEndSample: 269521
   - mStartSample: 282909
     mEndSample: 286059
-  - mStartSample: 301021
-    mEndSample: 304959
-  - mStartSample: 320512
-    mEndSample: 323859
-  - mStartSample: 340002
-    mEndSample: 343546
-  - mStartSample: 358312
-    mEndSample: 361068
-  - mStartSample: 376227
-    mEndSample: 379968
-  - mStartSample: 385087
-    mEndSample: 389812
-  - mStartSample: 394733
-    mEndSample: 400246
-  - mStartSample: 404577
-    mEndSample: 408121
-  - mStartSample: 415405
-    mEndSample: 418752
-  - mStartSample: 433715
-    mEndSample: 436668
-  - mStartSample: 452221
-    mEndSample: 455174
   - mStartSample: 470924
     mEndSample: 474271
-  - mStartSample: 490021
-    mEndSample: 493171
-  - mStartSample: 508330
-    mEndSample: 511480
-  - mStartSample: 527624
-    mEndSample: 532349
-  - mStartSample: 537074
-    mEndSample: 541602
-  - mStartSample: 546327
-    mEndSample: 552430
   - mStartSample: 555186
     mEndSample: 559715
   - mStartSample: 564440

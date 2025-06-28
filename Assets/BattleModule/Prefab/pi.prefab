@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1486029199809205448}
   - component: {fileID: 5072079790520853735}
-  - component: {fileID: 761929058358927554}
+  - component: {fileID: 1787790107249249650}
+  - component: {fileID: -1284005084263850503}
   m_Layer: 5
   m_Name: pi
   m_TagString: Untagged
@@ -59,7 +60,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &761929058358927554
+--- !u!225 &1787790107249249650
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3283259051205365057}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &-1284005084263850503
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -68,7 +81,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3283259051205365057}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc602d9299ac4ce699ed85532acd35ca, type: 3}
+  m_Script: {fileID: 11500000, guid: e91fa99ff2e14003888b7b738b032f05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7292100608975166891

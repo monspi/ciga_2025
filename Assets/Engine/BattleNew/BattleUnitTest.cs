@@ -7,7 +7,13 @@ namespace GameLogic.Battle
     {
         private void Awake()
         {
-            BattleController.Inst.StartBattle();
+            BattleController.Inst.StartBattle(1, 3, () =>
+            {
+                Debug.Log("Success");
+            }, () =>
+            {
+                Debug.Log("Fail");
+            });
         }
     }
 }

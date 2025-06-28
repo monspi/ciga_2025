@@ -1,5 +1,7 @@
 ﻿
 using UnityEngine;
+using UnityEngine.UI;
+using DG.Tweening;
 
 namespace GameLogic.Battle
 {
@@ -13,6 +15,7 @@ namespace GameLogic.Battle
         public override void OnBeginHit()
         {
             base.OnBeginHit();
+            transform.DOScale(0, 0.15f).SetEase(Ease.OutElastic);
         }
     }
 }

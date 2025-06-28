@@ -1,7 +1,8 @@
-///npc½»»¥Âß¼­ÏìÓ¦½Å±¾£¬ÓÃÓÚ´¦ÀíNPCÓëÍæ¼ÒµÄ½»»¥ÊÂ¼ş
+///npcï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½ï¿½ï¿½Ó¦ï¿½Å±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½NPCï¿½ï¿½ï¿½ï¿½ÒµÄ½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½
 
 using System.Collections;
 using System.Collections.Generic;
+using GameLogic.Battle;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
@@ -13,7 +14,7 @@ public class NPC_Interaction : MonoBehaviour
     {
         if(npc_BehaviorCtrl == null)
         {
-            Reset(); // Èç¹ûÃ»ÓĞÊÖ¶¯ÉèÖÃnpc_BehaviorCtrl£¬Ôò³¢ÊÔ´Ó¸¸ÎïÌå»ñÈ¡
+            Reset(); // ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½ï¿½npc_BehaviorCtrlï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ó¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡
         }
     }
 
@@ -22,7 +23,7 @@ public class NPC_Interaction : MonoBehaviour
         npc_BehaviorCtrl = GetComponentInParent<NPC_BehaviorCtrl>();
         if (npc_BehaviorCtrl == null)
         {
-            Debug.LogError("ÕÒ²»µ½npcĞĞÎª¿ØÖÆÆ÷",gameObject);
+            Debug.LogError("ï¿½Ò²ï¿½ï¿½ï¿½npcï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½",gameObject);
         }
     }
 
@@ -30,18 +31,26 @@ public class NPC_Interaction : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            // ´¥·¢NPC½»»¥Âß¼­
-            Debug.Log($"ÓëNPC {npc_BehaviorCtrl.npcID} ½»»¥");
-            // ¿ÉÒÔÔÚÕâÀïµ÷ÓÃÆäËû·½·¨À´´¦Àí¾ßÌåµÄ½»»¥Âß¼­
+            // ï¿½ï¿½ï¿½ï¿½NPCï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½
+            Debug.Log($"ï¿½ï¿½NPC {npc_BehaviorCtrl.npcID} ï¿½ï¿½ï¿½ï¿½");
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½
+            
+            BattleController.Inst.StartBattle(npc_BehaviorCtrl.npcID, 3, () =>
+            {
+                
+            }, () =>
+            {
+                
+            });
         }
     }
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            // ½áÊøNPC½»»¥Âß¼­
-            Debug.Log($"½áÊøÓëNPC {npc_BehaviorCtrl.npcID} µÄ½»»¥");
-            // ¿ÉÒÔÔÚÕâÀïµ÷ÓÃÆäËû·½·¨À´´¦Àí¾ßÌåµÄ½»»¥½áÊøÂß¼­
+            // ï¿½ï¿½ï¿½ï¿½NPCï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½
+            Debug.Log($"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½NPC {npc_BehaviorCtrl.npcID} ï¿½Ä½ï¿½ï¿½ï¿½");
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½
         }
     }
 }

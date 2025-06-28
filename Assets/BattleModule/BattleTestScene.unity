@@ -500,10 +500,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: BattleUIWindow
       objectReference: {fileID: 0}
-    - target: {fileID: 5786118981818046796, guid: ebd5cb299f702164999bde68e5d218cd, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6346940382462962673, guid: ebd5cb299f702164999bde68e5d218cd, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
