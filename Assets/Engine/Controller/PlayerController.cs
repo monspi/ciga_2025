@@ -63,6 +63,7 @@ namespace FartGame
             // 空格键切换熏模式
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                Debug.Log("Trigger Mode");
                 this.SendCommand<ToggleFumeModeCommand>();
             }
             
@@ -78,16 +79,32 @@ namespace FartGame
             float horizontal = Input.GetAxis("Horizontal");
             float vertical = Input.GetAxis("Vertical");
             
+            // 垂直速度是水平速度的一半
+            vertical *= 0.4f;
+            
             Vector3 movement = new Vector3(horizontal, 0, vertical);
-            movement = movement.normalized * mModel.MoveSpeed.Value * Time.deltaTime;
+            
+            // Y轴顺时针旋转45度 (围绕Y轴顺时针旋转45度)
+            float angle = 45f * Mathf.Deg2Rad; // 顺时针为负角度
+            float cosAngle = Mathf.Cos(angle);
+            float sinAngle = Mathf.Sin(angle);
+            
+            // 应用旋转变换矩阵
+            Vector3 rotatedMovement = new Vector3(
+                movement.x * cosAngle - movement.z * sinAngle,
+                movement.y,
+                movement.x * sinAngle + movement.z * cosAngle
+            );
+            
+            rotatedMovement = rotatedMovement.normalized * mModel.MoveSpeed.Value * Time.deltaTime;
             
             if (mRigidbody != null)
             {
-                mRigidbody.MovePosition(transform.position + movement);
+                mRigidbody.MovePosition(transform.position + rotatedMovement);
             }
             else
             {
-                transform.position += movement;
+                transform.position += rotatedMovement;
             }
             
             // 更新位置到Model

@@ -7,7 +7,7 @@ namespace FartGame
     {
         // 初始值配置
         public float InitialFartValue = 100f;
-        public float BaseMoveSpeed = 5f;
+        public float BaseMoveSpeed = 10f;
         public float InitialBodySize = 1f;
         
         // 屁值消耗配置
