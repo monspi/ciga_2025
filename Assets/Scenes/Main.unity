@@ -492,8 +492,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   restartButton: {fileID: 871949524}
   mainMenuButton: {fileID: 53230821}
-  gameOverReasonText: {fileID: 1522378645}
-  finalStatsText: {fileID: 231803358}
+  gameOverReasonText: {fileID: 0}
+  finalStatsText: {fileID: 0}
   gameOverPanel: {fileID: 363072490}
 --- !u!4 &363072492
 Transform:
@@ -2265,6 +2265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6021b181a63d4da29444eec064e5d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  battleSystemPrefab: {fileID: 0}
 --- !u!4 &1002856342
 Transform:
   m_ObjectHideFlags: 0
@@ -2664,12 +2665,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5b85f47e87874b4b8cfdc0b3ac10d53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fartValueText: {fileID: 375192071}
-  modeText: {fileID: 951186198}
+  fartValueText: {fileID: 0}
+  modeText: {fileID: 0}
   fartValueSlider: {fileID: 1400049937}
   bodySizeIndicator: {fileID: 0}
-  speedText: {fileID: 1085611658}
+  speedText: {fileID: 0}
   gameplayPanel: {fileID: 1153872061}
+  healingIndicator: {fileID: 0}
+  healingTimeText: {fileID: 0}
+  healingRateText: {fileID: 0}
   maxSliderValue: 200
 --- !u!4 &1153872063
 Transform:
