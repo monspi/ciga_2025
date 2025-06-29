@@ -415,9 +415,19 @@ namespace GameLogic.Battle
         /// </summary>
         private void PlayRandomHitSound()
         {
+            Debug.Log("[BattleUIWindow] PlayRandomHitSound() 被调用");
+            
+            if (SimpleAudioManager.Instance == null)
+            {
+                Debug.LogError("[BattleUIWindow] SimpleAudioManager.Instance 为 null!");
+                return;
+            }
+            
             string[] soundPool = _curIsBoss ? bossFartSounds : normalFartSounds;
             string randomSound = soundPool[UnityEngine.Random.Range(0, soundPool.Length)];
-            SimpleAudioManager.Instance?.PlaySound(randomSound);
+            
+            Debug.Log($"[BattleUIWindow] 即将播放音效: {randomSound} (Boss模式: {_curIsBoss})");
+            SimpleAudioManager.Instance.PlaySound(randomSound);
         }
         
         /// <summary>
@@ -426,7 +436,15 @@ namespace GameLogic.Battle
         /// <param name="soundName">音效名称</param>
         private void PlayBattleSound(string soundName)
         {
-            SimpleAudioManager.Instance?.PlaySound(soundName);
+            Debug.Log($"[BattleUIWindow] PlayBattleSound() 被调用，音效名称: {soundName}");
+            
+            if (SimpleAudioManager.Instance == null)
+            {
+                Debug.LogError("[BattleUIWindow] SimpleAudioManager.Instance 为 null!");
+                return;
+            }
+            
+            SimpleAudioManager.Instance.PlaySound(soundName);
         }
     }
 }

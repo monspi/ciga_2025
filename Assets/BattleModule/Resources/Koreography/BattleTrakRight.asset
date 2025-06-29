@@ -14,18 +14,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mEventID: battle_right
   mEventList:
-  - mStartSample: 96000
-    mEndSample: 96000
-  - mStartSample: 288000
-    mEndSample: 288000
-  - mStartSample: 480000
-    mEndSample: 480000
-  - mStartSample: 672000
-    mEndSample: 672000
-  - mStartSample: 864000
-    mEndSample: 864000
-  - mStartSample: 1056000
-    mEndSample: 1056000
+  - mStartSample: 48000
+    mEndSample: 48000
+  - mStartSample: 144000
+    mEndSample: 144000
+  - mStartSample: 240000
+    mEndSample: 240000
+  - mStartSample: 336000
+    mEndSample: 336000
+  - mStartSample: 432000
+    mEndSample: 432000
+  - mStartSample: 528000
+    mEndSample: 528000
+  - mStartSample: 624000
+    mEndSample: 624000
+  - mStartSample: 720000
+    mEndSample: 720000
+  - mStartSample: 816000
+    mEndSample: 816000
+  - mStartSample: 912000
+    mEndSample: 912000
+  - mStartSample: 1008000
+    mEndSample: 1008000
+  - mStartSample: 1104000
+    mEndSample: 1104000
   _SerializedPayloadTypes: []
   _ColorPayloads: []
   _ColorPayloadIdxs: 

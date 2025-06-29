@@ -175,10 +175,15 @@ public class SimpleAudioManager : MonoBehaviour
     // 播放音效
     public void PlaySound(string soundName)
     {
+        Debug.Log($"[SimpleAudioManager] PlaySound() 被调用，音效名称: {soundName}");
+        
         if (soundDict == null)
         {
+            Debug.Log("[SimpleAudioManager] soundDict 为 null，尝试初始化");
             Initialize();
         }
+        
+        Debug.Log($"[SimpleAudioManager] 当前 soundDict 中有 {soundDict?.Count ?? 0} 个音效");
         
         if (soundDict.ContainsKey(soundName))
         {
@@ -186,6 +191,7 @@ public class SimpleAudioManager : MonoBehaviour
             if (sound.clip != null)
             {
                 audioSource.PlayOneShot(sound.clip, sound.volume * masterVolume);
+                Debug.Log($"[SimpleAudioManager] 成功播放音效: {soundName}");
                 
                 #if ODIN_INSPECTOR && UNITY_EDITOR
                 Debug.Log($"<color=cyan>播放音效: {soundName}</color>");
@@ -193,12 +199,13 @@ public class SimpleAudioManager : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning($"音效 '{soundName}' 的AudioClip为空!");
+                Debug.LogWarning($"[SimpleAudioManager] 音效 '{soundName}' 的AudioClip为空!");
             }
         }
         else
         {
-            Debug.LogWarning($"音效 '{soundName}' 不存在! 可用音效: {string.Join(", ", soundDict.Keys)}");
+            string availableSounds = soundDict?.Count > 0 ? string.Join(", ", soundDict.Keys) : "无";
+            Debug.LogWarning($"[SimpleAudioManager] 音效 '{soundName}' 不存在! 可用音效: {availableSounds}");
         }
     }
     

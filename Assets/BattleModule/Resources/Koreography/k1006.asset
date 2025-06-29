@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mSourceClip: {fileID: 8300000, guid: c0fabef2ec2fa7343964949a6b2015a0, type: 3}
   mAudioFilePath: 
-  mSampleRate: -1
+  mSampleRate: 44100
   mIgnoreLatencyOffset: 0
   mTempoSections:
   - sectionName: New Section
     startSample: 0
-    samplesPerBeat: 24000
+    samplesPerBeat: 10285.714285714284
     beatsPerMeasure: 4
     bStartNewMeasure: 1
   mTracks:

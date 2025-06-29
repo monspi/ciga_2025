@@ -12,14 +12,40 @@ MonoBehaviour:
   m_Script: {fileID: -1223223985, guid: aa81bbec85a3f423193272a7c6154986, type: 3}
   m_Name: 1006right
   m_EditorClassIdentifier: 
-  mEventID: 1002right
+  mEventID: 1006right
   mEventList:
-  - mStartSample: 96000
-    mEndSample: 96000
-  - mStartSample: 288000
-    mEndSample: 288000
-  - mStartSample: 480000
-    mEndSample: 480000
+  - mStartSample: 20571
+    mEndSample: 20571
+  - mStartSample: 61714
+    mEndSample: 61714
+  - mStartSample: 102857
+    mEndSample: 102857
+  - mStartSample: 143999
+    mEndSample: 143999
+  - mStartSample: 185142
+    mEndSample: 185142
+  - mStartSample: 226285
+    mEndSample: 226285
+  - mStartSample: 267428
+    mEndSample: 267428
+  - mStartSample: 308571
+    mEndSample: 308571
+  - mStartSample: 370285
+    mEndSample: 370285
+  - mStartSample: 411428
+    mEndSample: 411428
+  - mStartSample: 452571
+    mEndSample: 452571
+  - mStartSample: 493714
+    mEndSample: 493714
+  - mStartSample: 534857
+    mEndSample: 534857
+  - mStartSample: 575999
+    mEndSample: 575999
+  - mStartSample: 617142
+    mEndSample: 617142
+  - mStartSample: 658285
+    mEndSample: 658285
   _SerializedPayloadTypes: []
   _ColorPayloads: []
   _ColorPayloadIdxs: 

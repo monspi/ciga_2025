@@ -1,4 +1,4 @@
-///npc½»»¥Âß¼­ÏìÓ¦½Å±¾£¬ÓÃÓÚ´¦ÀíNPCÓëÍæ¼ÒµÄ½»»¥ÊÂ¼ş
+///npcï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½ï¿½ï¿½Ó¦ï¿½Å±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½NPCï¿½ï¿½ï¿½ï¿½ÒµÄ½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½
 
 using System.Collections;
 using System.Collections.Generic;
@@ -20,7 +20,7 @@ public class NPC_Interaction : MonoBehaviour
     {
         if (npc_BehaviorCtrl == null)
         {
-            Reset(); // Èç¹ûÃ»ÓĞÊÖ¶¯ÉèÖÃnpc_BehaviorCtrl£¬Ôò³¢ÊÔ´Ó¸¸ÎïÌå»ñÈ¡
+            Reset(); // ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½ï¿½npc_BehaviorCtrlï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ó¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡
         }
     }
 
@@ -29,7 +29,7 @@ public class NPC_Interaction : MonoBehaviour
         npc_BehaviorCtrl = GetComponentInParent<NPC_BehaviorCtrl>();
         if (npc_BehaviorCtrl == null)
         {
-            Debug.LogError("ÕÒ²»µ½npcĞĞÎª¿ØÖÆÆ÷", gameObject);
+            Debug.LogError("ï¿½Ò²ï¿½ï¿½ï¿½npcï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", gameObject);
         }
     }
     private void Update()
@@ -40,18 +40,18 @@ public class NPC_Interaction : MonoBehaviour
             ;
 
             GameObject go = GameObject.FindWithTag("Player");
-            // »ñÈ¡ScriptA×é¼ş
+            // ï¿½ï¿½È¡ScriptAï¿½ï¿½ï¿½
             PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
-            // ·ÃÎÊScriptAÖĞµÄhp±äÁ¿
+            // ï¿½ï¿½ï¿½ï¿½ScriptAï¿½Ğµï¿½hpï¿½ï¿½ï¿½ï¿½
             //scriptA.disablewalk = true;
             BattleController.Inst.StartBattle(1001, 10,
                 () =>
             {
                 GameObject.Destroy(GameObject.FindWithTag("door1"));
                 GameObject go = GameObject.FindWithTag("Player");
-                // »ñÈ¡ScriptA×é¼ş
+                // ï¿½ï¿½È¡ScriptAï¿½ï¿½ï¿½
                 PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
-                // ·ÃÎÊScriptAÖĞµÄhp±äÁ¿
+                // ï¿½ï¿½ï¿½ï¿½ScriptAï¿½Ğµï¿½hpï¿½ï¿½ï¿½ï¿½
                 //scriptA.disablewalk = false;
                 GameObject shit = GameObject.Find("shit");
                 ShitAnimController ShitAnimController = shit.GetComponent<ShitAnimController>();
@@ -62,9 +62,9 @@ public class NPC_Interaction : MonoBehaviour
             }, () =>
             {
                 GameObject go = GameObject.FindWithTag("Player");
-                // »ñÈ¡ScriptA×é¼ş
+                // ï¿½ï¿½È¡ScriptAï¿½ï¿½ï¿½
                 PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
-                // ·ÃÎÊScriptAÖĞµÄhp±äÁ¿
+                // ï¿½ï¿½ï¿½ï¿½ScriptAï¿½Ğµï¿½hpï¿½ï¿½ï¿½ï¿½
                 //scriptA.disablewalk = false;
             }
         );
@@ -75,26 +75,26 @@ public class NPC_Interaction : MonoBehaviour
             ;
 
             GameObject go = GameObject.FindWithTag("Player");
-            // »ñÈ¡ScriptA×é¼ş
+            // ï¿½ï¿½È¡ScriptAï¿½ï¿½ï¿½
             PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
-            // ·ÃÎÊScriptAÖĞµÄhp±äÁ¿
+            // ï¿½ï¿½ï¿½ï¿½ScriptAï¿½Ğµï¿½hpï¿½ï¿½ï¿½ï¿½
             //scriptA.disablewalk = true;
             BattleController.Inst.StartBattle(1001, 10,
                 () =>
                 {
                     GameObject go = GameObject.FindWithTag("Player");
-                    // »ñÈ¡ScriptA×é¼ş
+                    // ï¿½ï¿½È¡ScriptAï¿½ï¿½ï¿½
                     PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
-                    // ·ÃÎÊScriptAÖĞµÄhp±äÁ¿
+                    // ï¿½ï¿½ï¿½ï¿½ScriptAï¿½Ğµï¿½hpï¿½ï¿½ï¿½ï¿½
                    // scriptA.disablewalk = false;
                     //GameObject parentObj = GameObject.Find("Canvas");
                     //parentObj.transform.Find("BOOMVideo").gameObject.SetActive(true);
                 }, () =>
                 {
                     GameObject go = GameObject.FindWithTag("Player");
-                    // »ñÈ¡ScriptA×é¼ş
+                    // ï¿½ï¿½È¡ScriptAï¿½ï¿½ï¿½
                     PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
-                    // ·ÃÎÊScriptAÖĞµÄhp±äÁ¿
+                    // ï¿½ï¿½ï¿½ï¿½ScriptAï¿½Ğµï¿½hpï¿½ï¿½ï¿½ï¿½
                     //scriptA.disablewalk = false;
                 }
         );
@@ -105,18 +105,18 @@ public class NPC_Interaction : MonoBehaviour
             ;
 
             GameObject go = GameObject.FindWithTag("Player");
-            // »ñÈ¡ScriptA×é¼ş
+            // ï¿½ï¿½È¡ScriptAï¿½ï¿½ï¿½
             PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
-            // ·ÃÎÊScriptAÖĞµÄhp±äÁ¿
+            // ï¿½ï¿½ï¿½ï¿½ScriptAï¿½Ğµï¿½hpï¿½ï¿½ï¿½ï¿½
             //scriptA.disablewalk = true;
-            BattleController.Inst.StartBattle(1001, 10,
+            BattleController.Inst.StartBattle(1002, 10,
                 () =>
                 {
                     GameObject.Destroy(GameObject.FindWithTag("door2"));
                     GameObject go = GameObject.FindWithTag("Player");
-                    // »ñÈ¡ScriptA×é¼ş
+                    // ï¿½ï¿½È¡ScriptAï¿½ï¿½ï¿½
                     PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
-                    // ·ÃÎÊScriptAÖĞµÄhp±äÁ¿
+                    // ï¿½ï¿½ï¿½ï¿½ScriptAï¿½Ğµï¿½hpï¿½ï¿½ï¿½ï¿½
                     //scriptA.disablewalk = false;
                     GameObject npc4 = GameObject.Find("npc4");
                     Npc4AnimController npc4AnimController = npc4.GetComponent<Npc4AnimController>();
@@ -127,9 +127,9 @@ public class NPC_Interaction : MonoBehaviour
                 }, () =>
                 {
                     GameObject go = GameObject.FindWithTag("Player");
-                    // »ñÈ¡ScriptA×é¼ş
+                    // ï¿½ï¿½È¡ScriptAï¿½ï¿½ï¿½
                     PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
-                    // ·ÃÎÊScriptAÖĞµÄhp±äÁ¿
+                    // ï¿½ï¿½ï¿½ï¿½ScriptAï¿½Ğµï¿½hpï¿½ï¿½ï¿½ï¿½
                     //scriptA.disablewalk = false;
                 }
         );
@@ -140,18 +140,18 @@ public class NPC_Interaction : MonoBehaviour
             ;
 
             GameObject go = GameObject.FindWithTag("Player");
-            // »ñÈ¡ScriptA×é¼ş
+            // ï¿½ï¿½È¡ScriptAï¿½ï¿½ï¿½
             PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
-            // ·ÃÎÊScriptAÖĞµÄhp±äÁ¿
+            // ï¿½ï¿½ï¿½ï¿½ScriptAï¿½Ğµï¿½hpï¿½ï¿½ï¿½ï¿½
             //scriptA.disablewalk = true;
-            BattleController.Inst.StartBattle(1001, 10,
+            BattleController.Inst.StartBattle(1003, 10,
                 () =>
                 {
                     GameObject.Destroy(GameObject.FindWithTag("door3"));
                     GameObject go = GameObject.FindWithTag("Player");
-                    // »ñÈ¡ScriptA×é¼ş
+                    // ï¿½ï¿½È¡ScriptAï¿½ï¿½ï¿½
                     PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
-                    // ·ÃÎÊScriptAÖĞµÄhp±äÁ¿
+                    // ï¿½ï¿½ï¿½ï¿½ScriptAï¿½Ğµï¿½hpï¿½ï¿½ï¿½ï¿½
                     //scriptA.disablewalk = false;
                     GameObject npc5 = GameObject.Find("npc5");
                     Npc5AnimController npc5AnimController = npc5.GetComponent<Npc5AnimController>();
@@ -164,9 +164,9 @@ public class NPC_Interaction : MonoBehaviour
                 }, () =>
                 {
                     GameObject go = GameObject.FindWithTag("Player");
-                    // »ñÈ¡ScriptA×é¼ş
+                    // ï¿½ï¿½È¡ScriptAï¿½ï¿½ï¿½
                     PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
-                    // ·ÃÎÊScriptAÖĞµÄhp±äÁ¿
+                    // ï¿½ï¿½ï¿½ï¿½ScriptAï¿½Ğµï¿½hpï¿½ï¿½ï¿½ï¿½
                     //scriptA.disablewalk = false;
                 }
         );
@@ -177,18 +177,20 @@ public class NPC_Interaction : MonoBehaviour
             ;
 
             GameObject go = GameObject.FindWithTag("Player");
-            // »ñÈ¡ScriptA×é¼ş
+            // ï¿½ï¿½È¡ScriptAï¿½ï¿½ï¿½
             PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
-            // ·ÃÎÊScriptAÖĞµÄhp±äÁ¿
+            // ï¿½ï¿½ï¿½ï¿½ScriptAï¿½Ğµï¿½hpï¿½ï¿½ï¿½ï¿½
             //scriptA.disablewalk = true;
-            BattleController.Inst.StartBattle(1001, 10,
+            BattleController.Inst.StartBattle(1006, 10,
                 () =>
                 {
+                    GameObject parentObj = GameObject.Find("Canvas");
+                    parentObj.transform.Find("BOOMVideo").gameObject.SetActive(true);
                     GameObject.Destroy(GameObject.FindWithTag("door1"));
                     GameObject go = GameObject.FindWithTag("Player");
-                    // »ñÈ¡ScriptA×é¼ş
+                    // ï¿½ï¿½È¡ScriptAï¿½ï¿½ï¿½
                     PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
-                    // ·ÃÎÊScriptAÖĞµÄhp±äÁ¿
+                    // ï¿½ï¿½ï¿½ï¿½ScriptAï¿½Ğµï¿½hpï¿½ï¿½ï¿½ï¿½
                    // scriptA.disablewalk = false;
                     //GameObject shit = GameObject.Find("shit");
                     //ShitAnimController ShitAnimController = shit.GetComponent<ShitAnimController>();
@@ -198,9 +200,9 @@ public class NPC_Interaction : MonoBehaviour
                 }, () =>
                 {
                     GameObject go = GameObject.FindWithTag("Player");
-                    // »ñÈ¡ScriptA×é¼ş
+                    // ï¿½ï¿½È¡ScriptAï¿½ï¿½ï¿½
                     PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
-                    // ·ÃÎÊScriptAÖĞµÄhp±äÁ¿
+                    // ï¿½ï¿½ï¿½ï¿½ScriptAï¿½Ğµï¿½hpï¿½ï¿½ï¿½ï¿½
                    // scriptA.disablewalk = false;
                 }
         );
@@ -211,18 +213,18 @@ public class NPC_Interaction : MonoBehaviour
         //    ;
 
         //    GameObject go = GameObject.FindWithTag("Player");
-        //    // »ñÈ¡ScriptA×é¼ş
+        //    // ï¿½ï¿½È¡ScriptAï¿½ï¿½ï¿½
         //    PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
-        //    // ·ÃÎÊScriptAÖĞµÄhp±äÁ¿
+        //    // ï¿½ï¿½ï¿½ï¿½ScriptAï¿½Ğµï¿½hpï¿½ï¿½ï¿½ï¿½
         //    scriptA.disablewalk = true;
         //    BattleController.Inst.StartBattle(1001, 10,
         //        () =>
         //        {
         //            GameObject.Destroy(GameObject.FindWithTag("door1"));
         //            GameObject go = GameObject.FindWithTag("Player");
-        //            // »ñÈ¡ScriptA×é¼ş
+        //            // ï¿½ï¿½È¡ScriptAï¿½ï¿½ï¿½
         //            PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
-        //            // ·ÃÎÊScriptAÖĞµÄhp±äÁ¿
+        //            // ï¿½ï¿½ï¿½ï¿½ScriptAï¿½Ğµï¿½hpï¿½ï¿½ï¿½ï¿½
         //            scriptA.disablewalk = false;
         //            GameObject shit = GameObject.Find("shit");
         //            ShitAnimController ShitAnimController = shit.GetComponent<ShitAnimController>();
@@ -233,9 +235,9 @@ public class NPC_Interaction : MonoBehaviour
         //        }, () =>
         //        {
         //            GameObject go = GameObject.FindWithTag("Player");
-        //            // »ñÈ¡ScriptA×é¼ş
+        //            // ï¿½ï¿½È¡ScriptAï¿½ï¿½ï¿½
         //            PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
-        //            // ·ÃÎÊScriptAÖĞµÄhp±äÁ¿
+        //            // ï¿½ï¿½ï¿½ï¿½ScriptAï¿½Ğµï¿½hpï¿½ï¿½ï¿½ï¿½
         //            scriptA.disablewalk = false;
         //        }
         //);
@@ -246,18 +248,18 @@ public class NPC_Interaction : MonoBehaviour
         //    ;
 
         //    GameObject go = GameObject.FindWithTag("Player");
-        //    // »ñÈ¡ScriptA×é¼ş
+        //    // ï¿½ï¿½È¡ScriptAï¿½ï¿½ï¿½
         //    PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
-        //    // ·ÃÎÊScriptAÖĞµÄhp±äÁ¿
+        //    // ï¿½ï¿½ï¿½ï¿½ScriptAï¿½Ğµï¿½hpï¿½ï¿½ï¿½ï¿½
         //    scriptA.disablewalk = true;
         //    BattleController.Inst.StartBattle(1001, 10,
         //        () =>
         //        {
         //            GameObject.Destroy(GameObject.FindWithTag("door1"));
         //            GameObject go = GameObject.FindWithTag("Player");
-        //            // »ñÈ¡ScriptA×é¼ş
+        //            // ï¿½ï¿½È¡ScriptAï¿½ï¿½ï¿½
         //            PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
-        //            // ·ÃÎÊScriptAÖĞµÄhp±äÁ¿
+        //            // ï¿½ï¿½ï¿½ï¿½ScriptAï¿½Ğµï¿½hpï¿½ï¿½ï¿½ï¿½
         //            scriptA.disablewalk = false;
         //            GameObject shit = GameObject.Find("shit");
         //            ShitAnimController ShitAnimController = shit.GetComponent<ShitAnimController>();
@@ -268,9 +270,9 @@ public class NPC_Interaction : MonoBehaviour
         //        }, () =>
         //        {
         //            GameObject go = GameObject.FindWithTag("Player");
-        //            // »ñÈ¡ScriptA×é¼ş
+        //            // ï¿½ï¿½È¡ScriptAï¿½ï¿½ï¿½
         //            PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
-        //            // ·ÃÎÊScriptAÖĞµÄhp±äÁ¿
+        //            // ï¿½ï¿½ï¿½ï¿½ScriptAï¿½Ğµï¿½hpï¿½ï¿½ï¿½ï¿½
         //            scriptA.disablewalk = false;
         //        }
         //);
@@ -282,12 +284,24 @@ public class NPC_Interaction : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            // ´¥·¢NPC½»»¥Âß¼­
-            Debug.Log($"ÓëNPC {npc_BehaviorCtrl.npcID} ½»»¥");
+            // ï¿½ï¿½ï¿½ï¿½NPCï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½
+            Debug.Log($"ï¿½ï¿½NPC {npc_BehaviorCtrl.npcID} ï¿½ï¿½ï¿½ï¿½");
+            
+            Debug.Log("[NPC_Interaction] å³å°†æ’­æ”¾äº¤äº’éŸ³æ•ˆ");
+            if (SimpleAudioManager.Instance == null)
+            {
+                Debug.LogError("[NPC_Interaction] SimpleAudioManager.Instance ä¸º null!");
+            }
+            else
+            {
+                Debug.Log("[NPC_Interaction] SimpleAudioManager.Instance å­˜åœ¨ï¼Œå°è¯•æ’­æ”¾ interact éŸ³æ•ˆ");
+                SimpleAudioManager.Instance.PlaySound("interact");
+            }
+            
             interactnpcid = npc_BehaviorCtrl.npcID;
             GameObject parentObj = GameObject.FindWithTag("Player");
             parentObj?.transform.Find("space").gameObject.SetActive(true);
-            // ¿ÉÒÔÔÚÕâÀïµ÷ÓÃÆäËû·½·¨À´´¦Àí¾ßÌåµÄ½»»¥Âß¼­
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½
         }
     }
     private void OnTriggerExit(Collider other)
@@ -295,10 +309,10 @@ public class NPC_Interaction : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             interactnpcid = 0;
-            // ½áÊøNPC½»»¥Âß¼­
-            Debug.Log($"½áÊøÓëNPC {npc_BehaviorCtrl.npcID} µÄ½»»¥");
+            // ï¿½ï¿½ï¿½ï¿½NPCï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½
+            Debug.Log($"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½NPC {npc_BehaviorCtrl.npcID} ï¿½Ä½ï¿½ï¿½ï¿½");
             GameObject.FindWithTag("INTERACT").SetActive(false);
-            // ¿ÉÒÔÔÚÕâÀïµ÷ÓÃÆäËû·½·¨À´´¦Àí¾ßÌåµÄ½»»¥½áÊøÂß¼­
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½
         }
     }
 }

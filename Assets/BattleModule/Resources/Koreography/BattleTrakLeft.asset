@@ -16,16 +16,28 @@ MonoBehaviour:
   mEventList:
   - mStartSample: 0
     mEndSample: 0
+  - mStartSample: 96000
+    mEndSample: 96000
   - mStartSample: 192000
     mEndSample: 192000
+  - mStartSample: 288000
+    mEndSample: 288000
   - mStartSample: 384000
     mEndSample: 384000
+  - mStartSample: 480000
+    mEndSample: 480000
   - mStartSample: 576000
     mEndSample: 576000
+  - mStartSample: 672000
+    mEndSample: 672000
   - mStartSample: 768000
     mEndSample: 768000
+  - mStartSample: 864000
+    mEndSample: 864000
   - mStartSample: 960000
     mEndSample: 960000
+  - mStartSample: 1056000
+    mEndSample: 1056000
   - mStartSample: 1152000
     mEndSample: 1152000
   _SerializedPayloadTypes: []

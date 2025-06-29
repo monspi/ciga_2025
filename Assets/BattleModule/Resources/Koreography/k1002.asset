@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: -2076007791, guid: aa81bbec85a3f423193272a7c6154986, type: 3}
   m_Name: k1002
   m_EditorClassIdentifier: 
-  mSourceClip: {fileID: 8300000, guid: c0fabef2ec2fa7343964949a6b2015a0, type: 3}
+  mSourceClip: {fileID: 8300000, guid: fec47d7f50908a549b1bd29dfeb2d66f, type: 3}
   mAudioFilePath: 
   mSampleRate: 48000
   mIgnoreLatencyOffset: 0
   mTempoSections:
   - sectionName: New Section
     startSample: 0
-    samplesPerBeat: 20571.42857142857
+    samplesPerBeat: 12000
     beatsPerMeasure: 4
     bStartNewMeasure: 1
   mTracks:
-  - {fileID: 11400000, guid: fff6587cf19ff844bab3233f67bd2a4d, type: 2}
-  - {fileID: 11400000, guid: f6a7b984a4d5ee54d8410cbd888c454e, type: 2}
+  - {fileID: 11400000, guid: 608b6c54c501ddf40bf839c6a4f3c523, type: 2}
+  - {fileID: 11400000, guid: c217cad58b347454e85fc4e5c54137c2, type: 2}
