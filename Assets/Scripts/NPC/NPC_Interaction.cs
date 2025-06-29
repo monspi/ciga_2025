@@ -14,7 +14,7 @@ public class NPC_Interaction : MonoBehaviour
 
     public NPC_BehaviorCtrl npc_BehaviorCtrl;
     public PlayerCtrl playerCtrl;
-   
+    private Material _material;
 
     private void Awake()
     {
