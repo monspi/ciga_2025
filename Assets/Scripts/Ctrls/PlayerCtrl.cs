@@ -7,11 +7,14 @@ using UnityEngine.Rendering;
 
 public class PlayerCtrl : MonoBehaviour
 {
-    public NavMeshAgent agent; // µ¼º½Íø¸ñ´úÀí£¬ÓÃÓÚÂ·¾¶Ñ°Â·
-    [Header("ÒÆ¶¯ËÙ¶È")]
-    public float speed = 3.5f; // Íæ¼ÒÒÆ¶¯ËÙ¶È
+    public NavMeshAgent agent; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½Ñ°Â·
+    [Header("ï¿½Æ¶ï¿½ï¿½Ù¶ï¿½")]
+    public float speed = 3.5f; // ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½Ù¶ï¿½
     public ParticleSystemRenderer characterParticleRenderer;
     public Transform selfTrans;
+    
+    // ç§»åŠ¨ç¦ç”¨æ ‡å¿—ï¼Œç”¨äºæˆ˜æ–—æ—¶é˜»æ­¢ç©å®¶ç§»åŠ¨
+    private bool _movementDisabled = false;
 
     // Start is called before the first frame update
     void Awake()
@@ -41,14 +44,28 @@ public class PlayerCtrl : MonoBehaviour
 
     private void HandleMovement()
     {
+        // æ£€æŸ¥ç§»åŠ¨æ˜¯å¦è¢«ç¦ç”¨ï¼ˆæˆ˜æ–—æ—¶ï¼‰
+        if (_movementDisabled)
+            return;
+            
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
-        // Èç¹ûÃ»ÓĞÊäÈë£¬Ôò²»ÒÆ¶¯
+        // ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ë£¬ï¿½ï¿½ï¿½Æ¶ï¿½
         if (Mathf.Approximately(horizontal, 0) && Mathf.Approximately(vertical, 0))
         {
             return;
         }
         Vector3 direction = new Vector3(horizontal, 0, vertical).normalized;
         agent.Move(direction * speed * Time.deltaTime);
+    }
+    
+    /// <summary>
+    /// è®¾ç½®ç©å®¶ç§»åŠ¨å¯ç”¨çŠ¶æ€
+    /// </summary>
+    /// <param name="enabled">trueå¯ç”¨ç§»åŠ¨ï¼Œfalseç¦ç”¨ç§»åŠ¨</param>
+    public void SetMovementEnabled(bool enabled)
+    {
+        _movementDisabled = !enabled;
+        Debug.Log($"[PlayerCtrl] ç§»åŠ¨çŠ¶æ€è®¾ç½®ä¸º: {(enabled ? "å¯ç”¨" : "ç¦ç”¨")}");
     }
 }

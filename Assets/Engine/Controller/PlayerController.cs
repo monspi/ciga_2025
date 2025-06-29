@@ -11,6 +11,9 @@ namespace FartGame
         private Collider2D mCollider;
         private CollisionController mCollisionController;
         
+        // 移动禁用标志，用于战斗时阻止玩家移动
+        private bool _movementDisabled = false;
+        
         [Header("Visual References")]
         public GameObject visualObject; // 玩家的视觉表现对象
         
@@ -114,6 +117,10 @@ namespace FartGame
         
         private void HandleMovement()
         {
+            // 检查移动是否被禁用（战斗时）
+            if (_movementDisabled)
+                return;
+                
             float horizontal = Input.GetAxis("Horizontal");
             float vertical = Input.GetAxis("Vertical");
             
@@ -192,6 +199,16 @@ namespace FartGame
             
             // 更新位置到Model
             mModel.Position.Value = transform.position;
+        }
+        
+        /// <summary>
+        /// 设置玩家移动启用状态
+        /// </summary>
+        /// <param name="enabled">true启用移动，false禁用移动</param>
+        public void SetMovementEnabled(bool enabled)
+        {
+            _movementDisabled = !enabled;
+            Debug.Log($"[PlayerController] 移动状态设置为: {(enabled ? "启用" : "禁用")}");
         }
         
         public IArchitecture GetArchitecture()
