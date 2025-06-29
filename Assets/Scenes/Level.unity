@@ -4771,7 +4771,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e09278e0554b78e438a2fc9636a036da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  npcID: 1002
+  npcID: 1001
   spriteRenderer: {fileID: 0}
   selfTrans: {fileID: 0}
   AnimController: {fileID: 0}

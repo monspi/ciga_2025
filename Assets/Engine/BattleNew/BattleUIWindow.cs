@@ -25,6 +25,9 @@ namespace GameLogic.Battle
         //铺面偏移
         public float timeOffset = 0f;
 
+        public Transform LeftHit;
+        public Transform RightHit;
+
         private AudioSource _source;
         private NoteBehaviorGenerator _generator;
 
@@ -49,11 +52,17 @@ namespace GameLogic.Battle
         private bool _finish;
         
         private CanvasGroup _canvasGroup;
+        
+        // PlayerCtrl引用，用于控制玩家移动状态
+        private PlayerCtrl _playerCtrl;
 
         private void Awake()
         {
             // Init();
             _canvasGroup = GetComponent<CanvasGroup>();
+            
+            // 提前查找PlayerCtrl，减少延迟
+            FindPlayerCtrl();
         }
 
         private bool _isInit;
@@ -65,6 +74,9 @@ namespace GameLogic.Battle
             _generator = GetComponentInChildren<NoteBehaviorGenerator>();
 
             TransferEvents();
+            
+            // 初始化Hit效果
+            InitializeHitEffects();
 
             _curMissCount = 0;
             _leftDetectIndex = 0;
@@ -109,6 +121,57 @@ namespace GameLogic.Battle
             }
         }
         
+        /// <summary>
+        /// 显示Hit效果
+        /// </summary>
+        /// <param name="isLeft">true显示左侧Hit，false显示右侧Hit</param>
+        private void ShowHitEffect(bool isLeft)
+        {
+            Transform hitTransform = isLeft ? LeftHit : RightHit;
+            string side = isLeft ? "左侧" : "右侧";
+            string invokeMethodName = isLeft ? nameof(HideLeftHit) : nameof(HideRightHit);
+            
+            if (hitTransform == null)
+            {
+                Debug.LogWarning($"[BattleUIWindow] {side}Hit Transform未设置，无法显示效果");
+                return;
+            }
+            
+            // 取消之前的隐藏延迟，重新开始计时
+            CancelInvoke(invokeMethodName);
+            
+            // 显示Hit效果
+            hitTransform.gameObject.SetActive(true);
+            Debug.Log($"[BattleUIWindow] 显示{side}Hit效果");
+            
+            // 0.5秒后隐藏
+            Invoke(invokeMethodName, 0.5f);
+        }
+        
+        /// <summary>
+        /// 隐藏左侧Hit效果（供Invoke调用）
+        /// </summary>
+        private void HideLeftHit()
+        {
+            if (LeftHit != null)
+            {
+                LeftHit.gameObject.SetActive(false);
+                Debug.Log("[BattleUIWindow] 隐藏左侧Hit效果");
+            }
+        }
+        
+        /// <summary>
+        /// 隐藏右侧Hit效果（供Invoke调用）
+        /// </summary>
+        private void HideRightHit()
+        {
+            if (RightHit != null)
+            {
+                RightHit.gameObject.SetActive(false);
+                Debug.Log("[BattleUIWindow] 隐藏右侧Hit效果");
+            }
+        }
+        
         public void Show(int songId, int missFailCount, Action onSuccess, Action onFail)
         {
             gameObject.SetActive(true);
@@ -127,6 +190,19 @@ namespace GameLogic.Battle
         private void StartPlay()
         {
             Init();
+            
+            // 查找并禁用玩家移动
+            var playerCtrl = FindPlayerCtrl();
+            if (playerCtrl != null)
+            {
+                playerCtrl.SetMovementEnabled(false);
+                Debug.Log("[BattleUIWindow] 战斗开始，已禁用玩家移动");
+            }
+            else
+            {
+                Debug.LogError("[BattleUIWindow] 无法禁用玩家移动：PlayerCtrl未找到");
+            }
+            
             _source.clip = clip;
             _source.Play();
             _isStart = true;
@@ -218,6 +294,10 @@ namespace GameLogic.Battle
                     {
                         var behavior = noteBehaviors[detectIndex];
                         behavior.OnBeginHit();
+                        
+                        // 显示Hit效果
+                        ShowHitEffect(isLeft);
+                        
                         detectIndex++;
                     }
                 }
@@ -233,6 +313,25 @@ namespace GameLogic.Battle
             
             _finish = true;
             _isStart = false;
+            
+            // 清理Hit效果相关的Invoke
+            CancelInvoke(nameof(HideLeftHit));
+            CancelInvoke(nameof(HideRightHit));
+            
+            // 强制隐藏Hit效果
+            if (LeftHit != null)
+                LeftHit.gameObject.SetActive(false);
+            if (RightHit != null)
+                RightHit.gameObject.SetActive(false);
+            
+            Debug.Log("[BattleUIWindow] 清理Hit效果完成");
+            
+            // 恢复玩家移动
+            if (_playerCtrl != null)
+            {
+                _playerCtrl.SetMovementEnabled(true);
+                Debug.Log($"[BattleUIWindow] 战斗结束（{(success ? "胜利" : "失败")}），已恢复玩家移动");
+            }
             
             if (success)
             {
@@ -251,6 +350,53 @@ namespace GameLogic.Battle
             {
                 
             });
+        }
+        
+        /// <summary>
+        /// 查找场景中的PlayerCtrl
+        /// </summary>
+        /// <returns>PlayerCtrl实例，找不到则返回null</returns>
+        private PlayerCtrl FindPlayerCtrl()
+        {
+            if (_playerCtrl == null)
+            {
+                _playerCtrl = FindObjectOfType<PlayerCtrl>();
+                if (_playerCtrl == null)
+                {
+                    Debug.LogWarning("[BattleUIWindow] 未找到PlayerCtrl，移动控制功能将被禁用");
+                }
+                else
+                {
+                    Debug.Log("[BattleUIWindow] 成功找到PlayerCtrl");
+                }
+            }
+            return _playerCtrl;
+        }
+        
+        /// <summary>
+        /// 初始化Hit效果，设置默认隐藏状态
+        /// </summary>
+        private void InitializeHitEffects()
+        {
+            if (LeftHit != null)
+            {
+                LeftHit.gameObject.SetActive(false);
+                Debug.Log("[BattleUIWindow] LeftHit初始化为隐藏状态");
+            }
+            else
+            {
+                Debug.LogWarning("[BattleUIWindow] LeftHit Transform未设置");
+            }
+            
+            if (RightHit != null)
+            {
+                RightHit.gameObject.SetActive(false);
+                Debug.Log("[BattleUIWindow] RightHit初始化为隐藏状态");
+            }
+            else
+            {
+                Debug.LogWarning("[BattleUIWindow] RightHit Transform未设置");
+            }
         }
     }
 }
