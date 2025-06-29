@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1223223985, guid: aa81bbec85a3f423193272a7c6154986, type: 3}
+  m_Name: 1002right
+  m_EditorClassIdentifier: 
+  mEventID: 1006right
+  mEventList:
+  - mStartSample: 41142
+    mEndSample: 41142
+  - mStartSample: 123428
+    mEndSample: 123428
+  - mStartSample: 205714
+    mEndSample: 205714
+  - mStartSample: 287999
+    mEndSample: 287999
+  - mStartSample: 329142
+    mEndSample: 329142
+  - mStartSample: 370285
+    mEndSample: 370285
+  - mStartSample: 411428
+    mEndSample: 411428
+  - mStartSample: 431999
+    mEndSample: 431999
+  - mStartSample: 452571
+    mEndSample: 452571
+  - mStartSample: 493714
+    mEndSample: 493714
+  - mStartSample: 534857
+    mEndSample: 534857
+  - mStartSample: 575999
+    mEndSample: 575999
+  - mStartSample: 617142
+    mEndSample: 617142
+  _SerializedPayloadTypes: []
+  _ColorPayloads: []
+  _ColorPayloadIdxs: 
+  _CurvePayloads: []
+  _CurvePayloadIdxs: 
+  _FloatPayloads: []
+  _FloatPayloadIdxs: 
+  _GradientPayloads: []
+  _GradientPayloadIdxs: 
+  _IntPayloads: []
+  _IntPayloadIdxs: 
+  _SpectrumPayloads: []
+  _SpectrumPayloadIdxs: 
+  _TextPayloads: []
+  _TextPayloadIdxs: 
