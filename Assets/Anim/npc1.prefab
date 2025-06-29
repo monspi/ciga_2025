@@ -66,7 +66,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e272841681f5f2478902e282f6998c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactnpcid: 0
   npc_BehaviorCtrl: {fileID: 8250273636743280413}
+  playerCtrl: {fileID: 0}
 --- !u!1 &5644647266129265765
 GameObject:
   m_ObjectHideFlags: 0
@@ -123,7 +125,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 613b4f7b9db42074e9e9cb45c83b3084, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -203,3 +205,4 @@ MonoBehaviour:
   npcID: 1001
   spriteRenderer: {fileID: 0}
   selfTrans: {fileID: 0}
+  AnimController: {fileID: 0}

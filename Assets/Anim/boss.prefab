@@ -45,7 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e272841681f5f2478902e282f6998c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactnpcid: 0
   npc_BehaviorCtrl: {fileID: 2416811873629984100}
+  playerCtrl: {fileID: 0}
 --- !u!65 &4837247828467997583
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -86,7 +88,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2479328157359200785
 Transform:
   m_ObjectHideFlags: 0
@@ -123,7 +125,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 613b4f7b9db42074e9e9cb45c83b3084, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -200,6 +202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e09278e0554b78e438a2fc9636a036da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  npcID: 1010
+  npcID: 1006
   spriteRenderer: {fileID: 0}
   selfTrans: {fileID: 0}
+  AnimController: {fileID: 0}
