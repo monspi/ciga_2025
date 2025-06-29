@@ -1,20 +1,26 @@
-///npcï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½ï¿½ï¿½Ó¦ï¿½Å±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½NPCï¿½ï¿½ï¿½ï¿½ÒµÄ½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½
+///npc½»»¥Âß¼­ÏìÓ¦½Å±¾£¬ÓÃÓÚ´¦ÀíNPCÓëÍæ¼ÒµÄ½»»¥ÊÂ¼þ
 
 using System.Collections;
 using System.Collections.Generic;
-using GameLogic.Battle;
 using UnityEngine;
+using GameLogic.Battle;
+using JetBrains.Annotations;
+
 
 [RequireComponent(typeof(Collider))]
 public class NPC_Interaction : MonoBehaviour
 {
+    public int interactnpcid;
+
     public NPC_BehaviorCtrl npc_BehaviorCtrl;
+    public PlayerCtrl playerCtrl;
+   
 
     private void Awake()
     {
-        if(npc_BehaviorCtrl == null)
+        if (npc_BehaviorCtrl == null)
         {
-            Reset(); // ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½ï¿½npc_BehaviorCtrlï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ó¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡
+            Reset(); // Èç¹ûÃ»ÓÐÊÖ¶¯ÉèÖÃnpc_BehaviorCtrl£¬Ôò³¢ÊÔ´Ó¸¸ÎïÌå»ñÈ¡
         }
     }
 
@@ -23,34 +29,275 @@ public class NPC_Interaction : MonoBehaviour
         npc_BehaviorCtrl = GetComponentInParent<NPC_BehaviorCtrl>();
         if (npc_BehaviorCtrl == null)
         {
-            Debug.LogError("ï¿½Ò²ï¿½ï¿½ï¿½npcï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½",gameObject);
+            Debug.LogError("ÕÒ²»µ½npcÐÐÎª¿ØÖÆÆ÷", gameObject);
         }
     }
+    private void Update()
+    {
 
+        if (Input.GetKeyDown(KeyCode.Space) && interactnpcid == 1001)
+        {
+            ;
+
+            GameObject go = GameObject.Find("Ö÷½Ç");
+            // »ñÈ¡ScriptA×é¼þ
+            PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
+            // ·ÃÎÊScriptAÖÐµÄhp±äÁ¿
+            //scriptA.disablewalk = true;
+            BattleController.Inst.StartBattle(1001, 10,
+                () =>
+            {
+                GameObject.Destroy(GameObject.FindWithTag("door1"));
+                GameObject go = GameObject.Find("Ö÷½Ç");
+                // »ñÈ¡ScriptA×é¼þ
+                PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
+                // ·ÃÎÊScriptAÖÐµÄhp±äÁ¿
+                //scriptA.disablewalk = false;
+                GameObject shit = GameObject.Find("shit");
+                ShitAnimController ShitAnimController = shit.GetComponent<ShitAnimController>();
+
+                ShitAnimController.PlayAnim("Die");
+                //GameObject parentObj = GameObject.Find("Canvas");
+                //parentObj.transform.Find("BOOMVideo").gameObject.SetActive(true);
+            }, () =>
+            {
+                GameObject go = GameObject.Find("Ö÷½Ç");
+                // »ñÈ¡ScriptA×é¼þ
+                PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
+                // ·ÃÎÊScriptAÖÐµÄhp±äÁ¿
+                //scriptA.disablewalk = false;
+            }
+        );
+
+        };
+        if (Input.GetKeyDown(KeyCode.Space) && interactnpcid == 1002)
+        {
+            ;
+
+            GameObject go = GameObject.Find("Ö÷½Ç");
+            // »ñÈ¡ScriptA×é¼þ
+            PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
+            // ·ÃÎÊScriptAÖÐµÄhp±äÁ¿
+            //scriptA.disablewalk = true;
+            BattleController.Inst.StartBattle(1001, 10,
+                () =>
+                {
+                    GameObject go = GameObject.Find("Ö÷½Ç");
+                    // »ñÈ¡ScriptA×é¼þ
+                    PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
+                    // ·ÃÎÊScriptAÖÐµÄhp±äÁ¿
+                   // scriptA.disablewalk = false;
+                    //GameObject parentObj = GameObject.Find("Canvas");
+                    //parentObj.transform.Find("BOOMVideo").gameObject.SetActive(true);
+                }, () =>
+                {
+                    GameObject go = GameObject.Find("Ö÷½Ç");
+                    // »ñÈ¡ScriptA×é¼þ
+                    PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
+                    // ·ÃÎÊScriptAÖÐµÄhp±äÁ¿
+                    //scriptA.disablewalk = false;
+                }
+        );
+
+        };
+        if (Input.GetKeyDown(KeyCode.Space) && interactnpcid == 1004)
+        {
+            ;
+
+            GameObject go = GameObject.Find("Ö÷½Ç");
+            // »ñÈ¡ScriptA×é¼þ
+            PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
+            // ·ÃÎÊScriptAÖÐµÄhp±äÁ¿
+            //scriptA.disablewalk = true;
+            BattleController.Inst.StartBattle(1001, 10,
+                () =>
+                {
+                    GameObject.Destroy(GameObject.FindWithTag("door2"));
+                    GameObject go = GameObject.Find("Ö÷½Ç");
+                    // »ñÈ¡ScriptA×é¼þ
+                    PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
+                    // ·ÃÎÊScriptAÖÐµÄhp±äÁ¿
+                    //scriptA.disablewalk = false;
+                    GameObject npc4 = GameObject.Find("npc4");
+                    Npc4AnimController npc4AnimController = npc4.GetComponent<Npc4AnimController>();
+
+                    npc4AnimController.PlayAnim("Cry");
+                    //GameObject parentObj = GameObject.Find("Canvas");
+                    //parentObj.transform.Find("BOOMVideo").gameObject.SetActive(true);
+                }, () =>
+                {
+                    GameObject go = GameObject.Find("Ö÷½Ç");
+                    // »ñÈ¡ScriptA×é¼þ
+                    PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
+                    // ·ÃÎÊScriptAÖÐµÄhp±äÁ¿
+                    //scriptA.disablewalk = false;
+                }
+        );
+
+        };
+        if (Input.GetKeyDown(KeyCode.Space) && interactnpcid == 1005)
+        {
+            ;
+
+            GameObject go = GameObject.Find("Ö÷½Ç");
+            // »ñÈ¡ScriptA×é¼þ
+            PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
+            // ·ÃÎÊScriptAÖÐµÄhp±äÁ¿
+            //scriptA.disablewalk = true;
+            BattleController.Inst.StartBattle(1001, 10,
+                () =>
+                {
+                    GameObject.Destroy(GameObject.FindWithTag("door3"));
+                    GameObject go = GameObject.Find("Ö÷½Ç");
+                    // »ñÈ¡ScriptA×é¼þ
+                    PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
+                    // ·ÃÎÊScriptAÖÐµÄhp±äÁ¿
+                    //scriptA.disablewalk = false;
+                    GameObject npc5 = GameObject.Find("npc5");
+                    Npc5AnimController npc5AnimController = npc5.GetComponent<Npc5AnimController>();
+                    GameObject parentObj = GameObject.Find("NPC");
+                    parentObj.transform.Find("boss").gameObject.SetActive(true);
+
+                    npc5AnimController.PlayAnim("Frown");
+                    //GameObject parentObj = GameObject.Find("Canvas");
+                    //parentObj.transform.Find("BOOMVideo").gameObject.SetActive(true);
+                }, () =>
+                {
+                    GameObject go = GameObject.Find("Ö÷½Ç");
+                    // »ñÈ¡ScriptA×é¼þ
+                    PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
+                    // ·ÃÎÊScriptAÖÐµÄhp±äÁ¿
+                    //scriptA.disablewalk = false;
+                }
+        );
+
+        };
+        if (Input.GetKeyDown(KeyCode.Space) && interactnpcid == 1006)
+        {
+            ;
+
+            GameObject go = GameObject.Find("Ö÷½Ç");
+            // »ñÈ¡ScriptA×é¼þ
+            PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
+            // ·ÃÎÊScriptAÖÐµÄhp±äÁ¿
+            //scriptA.disablewalk = true;
+            BattleController.Inst.StartBattle(1001, 10,
+                () =>
+                {
+                    GameObject.Destroy(GameObject.FindWithTag("door1"));
+                    GameObject go = GameObject.Find("Ö÷½Ç");
+                    // »ñÈ¡ScriptA×é¼þ
+                    PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
+                    // ·ÃÎÊScriptAÖÐµÄhp±äÁ¿
+                   // scriptA.disablewalk = false;
+                    //GameObject shit = GameObject.Find("shit");
+                    //ShitAnimController ShitAnimController = shit.GetComponent<ShitAnimController>();
+
+                    //ShitAnimController.PlayAnim("Die");
+
+                }, () =>
+                {
+                    GameObject go = GameObject.Find("Ö÷½Ç");
+                    // »ñÈ¡ScriptA×é¼þ
+                    PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
+                    // ·ÃÎÊScriptAÖÐµÄhp±äÁ¿
+                   // scriptA.disablewalk = false;
+                }
+        );
+
+        };
+        //if (Input.GetKeyDown(KeyCode.Space) && interactnpcid == 1001)
+        //{
+        //    ;
+
+        //    GameObject go = GameObject.Find("Ö÷½Ç");
+        //    // »ñÈ¡ScriptA×é¼þ
+        //    PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
+        //    // ·ÃÎÊScriptAÖÐµÄhp±äÁ¿
+        //    scriptA.disablewalk = true;
+        //    BattleController.Inst.StartBattle(1001, 10,
+        //        () =>
+        //        {
+        //            GameObject.Destroy(GameObject.FindWithTag("door1"));
+        //            GameObject go = GameObject.Find("Ö÷½Ç");
+        //            // »ñÈ¡ScriptA×é¼þ
+        //            PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
+        //            // ·ÃÎÊScriptAÖÐµÄhp±äÁ¿
+        //            scriptA.disablewalk = false;
+        //            GameObject shit = GameObject.Find("shit");
+        //            ShitAnimController ShitAnimController = shit.GetComponent<ShitAnimController>();
+
+        //            ShitAnimController.PlayAnim("Die");
+        //            //GameObject parentObj = GameObject.Find("Canvas");
+        //            //parentObj.transform.Find("BOOMVideo").gameObject.SetActive(true);
+        //        }, () =>
+        //        {
+        //            GameObject go = GameObject.Find("Ö÷½Ç");
+        //            // »ñÈ¡ScriptA×é¼þ
+        //            PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
+        //            // ·ÃÎÊScriptAÖÐµÄhp±äÁ¿
+        //            scriptA.disablewalk = false;
+        //        }
+        //);
+
+        //};
+        //if (Input.GetKeyDown(KeyCode.Space) && interactnpcid == 1001)
+        //{
+        //    ;
+
+        //    GameObject go = GameObject.Find("Ö÷½Ç");
+        //    // »ñÈ¡ScriptA×é¼þ
+        //    PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
+        //    // ·ÃÎÊScriptAÖÐµÄhp±äÁ¿
+        //    scriptA.disablewalk = true;
+        //    BattleController.Inst.StartBattle(1001, 10,
+        //        () =>
+        //        {
+        //            GameObject.Destroy(GameObject.FindWithTag("door1"));
+        //            GameObject go = GameObject.Find("Ö÷½Ç");
+        //            // »ñÈ¡ScriptA×é¼þ
+        //            PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
+        //            // ·ÃÎÊScriptAÖÐµÄhp±äÁ¿
+        //            scriptA.disablewalk = false;
+        //            GameObject shit = GameObject.Find("shit");
+        //            ShitAnimController ShitAnimController = shit.GetComponent<ShitAnimController>();
+
+        //            ShitAnimController.PlayAnim("Die");
+        //            //GameObject parentObj = GameObject.Find("Canvas");
+        //            //parentObj.transform.Find("BOOMVideo").gameObject.SetActive(true);
+        //        }, () =>
+        //        {
+        //            GameObject go = GameObject.Find("Ö÷½Ç");
+        //            // »ñÈ¡ScriptA×é¼þ
+        //            PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
+        //            // ·ÃÎÊScriptAÖÐµÄhp±äÁ¿
+        //            scriptA.disablewalk = false;
+        //        }
+        //);
+
+        //};
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            // ï¿½ï¿½ï¿½ï¿½NPCï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½
-            Debug.Log($"ï¿½ï¿½NPC {npc_BehaviorCtrl.npcID} ï¿½ï¿½ï¿½ï¿½");
-            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½
-            
-            BattleController.Inst.StartBattle(npc_BehaviorCtrl.npcID, 3, () =>
-            {
-                
-            }, () =>
-            {
-                
-            });
+            // ´¥·¢NPC½»»¥Âß¼­
+            Debug.Log($"ÓëNPC {npc_BehaviorCtrl.npcID} ½»»¥");
+            interactnpcid = npc_BehaviorCtrl.npcID;
+            GameObject parentObj = GameObject.Find("Ö÷½Ç");
+            parentObj.transform.Find("space").gameObject.SetActive(true);
+            // ¿ÉÒÔÔÚÕâÀïµ÷ÓÃÆäËû·½·¨À´´¦Àí¾ßÌåµÄ½»»¥Âß¼­
         }
     }
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            // ï¿½ï¿½ï¿½ï¿½NPCï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½
-            Debug.Log($"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½NPC {npc_BehaviorCtrl.npcID} ï¿½Ä½ï¿½ï¿½ï¿½");
-            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½
+            interactnpcid = 0;
+            // ½áÊøNPC½»»¥Âß¼­
+            Debug.Log($"½áÊøÓëNPC {npc_BehaviorCtrl.npcID} µÄ½»»¥");
+            GameObject.FindWithTag("INTERACT").SetActive(false);
+            // ¿ÉÒÔÔÚÕâÀïµ÷ÓÃÆäËû·½·¨À´´¦Àí¾ßÌåµÄ½»»¥½áÊøÂß¼­
         }
     }
 }
