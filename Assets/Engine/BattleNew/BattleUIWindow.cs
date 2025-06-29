@@ -50,11 +50,16 @@ namespace GameLogic.Battle
         private Action _onSuccess;
         private Action _onFail;
         private bool _finish;
+        private bool _curIsBoss;
         
         private CanvasGroup _canvasGroup;
         
         // PlayerCtrl引用，用于控制玩家移动状态
         private PlayerCtrl _playerCtrl;
+        
+        // 音效池数组
+        private string[] normalFartSounds = {"battle_fart_short_bA1", "battle_fart_short_B1", "battle_fart_short_B2", "battle_fart_short_E1"};
+        private string[] bossFartSounds = {"battle_boss_fart_short_A1", "battle_boss_fart_short_D2", "battle_boss_fart_short_E2", "battle_boss_fart_short_E1"};
 
         private void Awake()
         {
@@ -184,6 +189,7 @@ namespace GameLogic.Battle
             _onSuccess = onSuccess;
             _onFail = onFail;
             gameObject.SetActive(true);
+            if (songId == 1006) _curIsBoss = true;
             Invoke(nameof(StartPlay), 0.5f);
         }
 
@@ -272,6 +278,7 @@ namespace GameLogic.Battle
                         Vector2 position = isLeft ? _generator.leftDetectTF.position : _generator.rightDetectTF.position;
                         go.transform.position = position;
                         _curMissCount++;
+                        PlayBattleSound("battle_trigger_failed");
                         _animatorNose.Play("noseInhale");
                         if (_curMissCount >= _maxMissCount)
                         {
@@ -297,6 +304,7 @@ namespace GameLogic.Battle
                         
                         // 显示Hit效果
                         ShowHitEffect(isLeft);
+                        PlayRandomHitSound();
                         
                         detectIndex++;
                     }
@@ -325,6 +333,7 @@ namespace GameLogic.Battle
                 RightHit.gameObject.SetActive(false);
             
             Debug.Log("[BattleUIWindow] 清理Hit效果完成");
+            _curIsBoss = false;
             
             // 恢复玩家移动
             if (_playerCtrl != null)
@@ -335,10 +344,12 @@ namespace GameLogic.Battle
             
             if (success)
             {
+                PlayBattleSound("battle_victory");
                 _onSuccess?.Invoke();
             }
             else
             {
+                PlayBattleSound("battle_failed");
                 _onFail?.Invoke();
             }
             _source.Stop();
@@ -397,6 +408,25 @@ namespace GameLogic.Battle
             {
                 Debug.LogWarning("[BattleUIWindow] RightHit Transform未设置");
             }
+        }
+        
+        /// <summary>
+        /// 播放随机按键成功音效
+        /// </summary>
+        private void PlayRandomHitSound()
+        {
+            string[] soundPool = _curIsBoss ? bossFartSounds : normalFartSounds;
+            string randomSound = soundPool[UnityEngine.Random.Range(0, soundPool.Length)];
+            SimpleAudioManager.Instance?.PlaySound(randomSound);
+        }
+        
+        /// <summary>
+        /// 播放战斗音效
+        /// </summary>
+        /// <param name="soundName">音效名称</param>
+        private void PlayBattleSound(string soundName)
+        {
+            SimpleAudioManager.Instance?.PlaySound(soundName);
         }
     }
 }

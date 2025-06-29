@@ -39,7 +39,7 @@ public class NPC_Interaction : MonoBehaviour
         {
             ;
 
-            GameObject go = GameObject.Find("主角");
+            GameObject go = GameObject.FindWithTag("Player");
             // 获取ScriptA组件
             PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
             // 访问ScriptA中的hp变量
@@ -48,7 +48,7 @@ public class NPC_Interaction : MonoBehaviour
                 () =>
             {
                 GameObject.Destroy(GameObject.FindWithTag("door1"));
-                GameObject go = GameObject.Find("主角");
+                GameObject go = GameObject.FindWithTag("Player");
                 // 获取ScriptA组件
                 PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
                 // 访问ScriptA中的hp变量
@@ -61,7 +61,7 @@ public class NPC_Interaction : MonoBehaviour
                 //parentObj.transform.Find("BOOMVideo").gameObject.SetActive(true);
             }, () =>
             {
-                GameObject go = GameObject.Find("主角");
+                GameObject go = GameObject.FindWithTag("Player");
                 // 获取ScriptA组件
                 PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
                 // 访问ScriptA中的hp变量
@@ -74,7 +74,7 @@ public class NPC_Interaction : MonoBehaviour
         {
             ;
 
-            GameObject go = GameObject.Find("主角");
+            GameObject go = GameObject.FindWithTag("Player");
             // 获取ScriptA组件
             PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
             // 访问ScriptA中的hp变量
@@ -82,7 +82,7 @@ public class NPC_Interaction : MonoBehaviour
             BattleController.Inst.StartBattle(1001, 10,
                 () =>
                 {
-                    GameObject go = GameObject.Find("主角");
+                    GameObject go = GameObject.FindWithTag("Player");
                     // 获取ScriptA组件
                     PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
                     // 访问ScriptA中的hp变量
@@ -91,7 +91,7 @@ public class NPC_Interaction : MonoBehaviour
                     //parentObj.transform.Find("BOOMVideo").gameObject.SetActive(true);
                 }, () =>
                 {
-                    GameObject go = GameObject.Find("主角");
+                    GameObject go = GameObject.FindWithTag("Player");
                     // 获取ScriptA组件
                     PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
                     // 访问ScriptA中的hp变量
@@ -104,7 +104,7 @@ public class NPC_Interaction : MonoBehaviour
         {
             ;
 
-            GameObject go = GameObject.Find("主角");
+            GameObject go = GameObject.FindWithTag("Player");
             // 获取ScriptA组件
             PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
             // 访问ScriptA中的hp变量
@@ -113,7 +113,7 @@ public class NPC_Interaction : MonoBehaviour
                 () =>
                 {
                     GameObject.Destroy(GameObject.FindWithTag("door2"));
-                    GameObject go = GameObject.Find("主角");
+                    GameObject go = GameObject.FindWithTag("Player");
                     // 获取ScriptA组件
                     PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
                     // 访问ScriptA中的hp变量
@@ -126,7 +126,7 @@ public class NPC_Interaction : MonoBehaviour
                     //parentObj.transform.Find("BOOMVideo").gameObject.SetActive(true);
                 }, () =>
                 {
-                    GameObject go = GameObject.Find("主角");
+                    GameObject go = GameObject.FindWithTag("Player");
                     // 获取ScriptA组件
                     PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
                     // 访问ScriptA中的hp变量
@@ -139,7 +139,7 @@ public class NPC_Interaction : MonoBehaviour
         {
             ;
 
-            GameObject go = GameObject.Find("主角");
+            GameObject go = GameObject.FindWithTag("Player");
             // 获取ScriptA组件
             PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
             // 访问ScriptA中的hp变量
@@ -148,7 +148,7 @@ public class NPC_Interaction : MonoBehaviour
                 () =>
                 {
                     GameObject.Destroy(GameObject.FindWithTag("door3"));
-                    GameObject go = GameObject.Find("主角");
+                    GameObject go = GameObject.FindWithTag("Player");
                     // 获取ScriptA组件
                     PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
                     // 访问ScriptA中的hp变量
@@ -163,7 +163,7 @@ public class NPC_Interaction : MonoBehaviour
                     //parentObj.transform.Find("BOOMVideo").gameObject.SetActive(true);
                 }, () =>
                 {
-                    GameObject go = GameObject.Find("主角");
+                    GameObject go = GameObject.FindWithTag("Player");
                     // 获取ScriptA组件
                     PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
                     // 访问ScriptA中的hp变量
@@ -176,7 +176,7 @@ public class NPC_Interaction : MonoBehaviour
         {
             ;
 
-            GameObject go = GameObject.Find("主角");
+            GameObject go = GameObject.FindWithTag("Player");
             // 获取ScriptA组件
             PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
             // 访问ScriptA中的hp变量
@@ -185,7 +185,7 @@ public class NPC_Interaction : MonoBehaviour
                 () =>
                 {
                     GameObject.Destroy(GameObject.FindWithTag("door1"));
-                    GameObject go = GameObject.Find("主角");
+                    GameObject go = GameObject.FindWithTag("Player");
                     // 获取ScriptA组件
                     PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
                     // 访问ScriptA中的hp变量
@@ -197,7 +197,7 @@ public class NPC_Interaction : MonoBehaviour
 
                 }, () =>
                 {
-                    GameObject go = GameObject.Find("主角");
+                    GameObject go = GameObject.FindWithTag("Player");
                     // 获取ScriptA组件
                     PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
                     // 访问ScriptA中的hp变量
@@ -210,7 +210,7 @@ public class NPC_Interaction : MonoBehaviour
         //{
         //    ;
 
-        //    GameObject go = GameObject.Find("主角");
+        //    GameObject go = GameObject.FindWithTag("Player");
         //    // 获取ScriptA组件
         //    PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
         //    // 访问ScriptA中的hp变量
@@ -219,7 +219,7 @@ public class NPC_Interaction : MonoBehaviour
         //        () =>
         //        {
         //            GameObject.Destroy(GameObject.FindWithTag("door1"));
-        //            GameObject go = GameObject.Find("主角");
+        //            GameObject go = GameObject.FindWithTag("Player");
         //            // 获取ScriptA组件
         //            PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
         //            // 访问ScriptA中的hp变量
@@ -232,7 +232,7 @@ public class NPC_Interaction : MonoBehaviour
         //            //parentObj.transform.Find("BOOMVideo").gameObject.SetActive(true);
         //        }, () =>
         //        {
-        //            GameObject go = GameObject.Find("主角");
+        //            GameObject go = GameObject.FindWithTag("Player");
         //            // 获取ScriptA组件
         //            PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
         //            // 访问ScriptA中的hp变量
@@ -245,7 +245,7 @@ public class NPC_Interaction : MonoBehaviour
         //{
         //    ;
 
-        //    GameObject go = GameObject.Find("主角");
+        //    GameObject go = GameObject.FindWithTag("Player");
         //    // 获取ScriptA组件
         //    PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
         //    // 访问ScriptA中的hp变量
@@ -254,7 +254,7 @@ public class NPC_Interaction : MonoBehaviour
         //        () =>
         //        {
         //            GameObject.Destroy(GameObject.FindWithTag("door1"));
-        //            GameObject go = GameObject.Find("主角");
+        //            GameObject go = GameObject.FindWithTag("Player");
         //            // 获取ScriptA组件
         //            PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
         //            // 访问ScriptA中的hp变量
@@ -267,7 +267,7 @@ public class NPC_Interaction : MonoBehaviour
         //            //parentObj.transform.Find("BOOMVideo").gameObject.SetActive(true);
         //        }, () =>
         //        {
-        //            GameObject go = GameObject.Find("主角");
+        //            GameObject go = GameObject.FindWithTag("Player");
         //            // 获取ScriptA组件
         //            PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
         //            // 访问ScriptA中的hp变量
@@ -277,6 +277,7 @@ public class NPC_Interaction : MonoBehaviour
 
         //};
     }
+    
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -284,8 +285,8 @@ public class NPC_Interaction : MonoBehaviour
             // 触发NPC交互逻辑
             Debug.Log($"与NPC {npc_BehaviorCtrl.npcID} 交互");
             interactnpcid = npc_BehaviorCtrl.npcID;
-            GameObject parentObj = GameObject.Find("主角");
-            parentObj.transform.Find("space").gameObject.SetActive(true);
+            GameObject parentObj = GameObject.FindWithTag("Player");
+            parentObj?.transform.Find("space").gameObject.SetActive(true);
             // 可以在这里调用其他方法来处理具体的交互逻辑
         }
     }
