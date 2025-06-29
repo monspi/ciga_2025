@@ -103,7 +103,7 @@ public class SimpleAudioManagerEditor : OdinEditor
         foreach (string guid in guids)
         {
             string assetPath = AssetDatabase.GUIDToAssetPath(guid);
-            if (assetPath.ToLower().EndsWith(".ogg"))
+            if (assetPath.ToLower().EndsWith(".ogg") && assetPath.ToLower().EndsWith(".mp3"))
             {
                 AudioClip clip = AssetDatabase.LoadAssetAtPath<AudioClip>(assetPath);
                 if (clip != null)

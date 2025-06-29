@@ -14,7 +14,7 @@ public class NPC_Interaction : MonoBehaviour
 
     public NPC_BehaviorCtrl npc_BehaviorCtrl;
     public PlayerCtrl playerCtrl;
-   
+    private Material _material;
 
     private void Awake()
     {
@@ -49,6 +49,7 @@ public class NPC_Interaction : MonoBehaviour
                 () =>
             {
                 GameObject.Destroy(GameObject.FindWithTag("door1"));
+                SimpleAudioManager.Instance.PlaySound("door");
                 GameObject go = GameObject.FindWithTag("Player");
                 // ��ȡScriptA���
                 PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
@@ -188,6 +189,7 @@ public class NPC_Interaction : MonoBehaviour
                     GameObject parentObj = GameObject.Find("Canvas");
                     parentObj.transform.Find("BOOMVideo").gameObject.SetActive(true);
                     GameObject.Destroy(GameObject.FindWithTag("door1"));
+                    SimpleAudioManager.Instance.PlaySound("door");
                     GameObject go = GameObject.FindWithTag("Player");
                     // ��ȡScriptA���
                     PlayerCtrl scriptA = go.GetComponent<PlayerCtrl>();
