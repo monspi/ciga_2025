@@ -61,7 +61,7 @@ namespace GameLogic.Battle
             else if (!_invokeDestroyFlag)
             {
                 _invokeDestroyFlag = true;
-                Invoke(nameof(DestroyFunc), 5f);
+                Invoke(nameof(DestroyFunc), 0.2f);
             }
         }
 

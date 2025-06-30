@@ -333,6 +333,10 @@ namespace GameLogic.Battle
                 RightHit.gameObject.SetActive(false);
             
             Debug.Log("[BattleUIWindow] 清理Hit效果完成");
+            
+            // 强制清理所有Note对象，避免残留
+            ForceCleanupNotes();
+            
             _curIsBoss = false;
             
             // 恢复玩家移动
@@ -361,6 +365,87 @@ namespace GameLogic.Battle
             {
                 
             });
+        }
+        
+        /// <summary>
+        /// 强制清理所有存活的Note对象
+        /// </summary>
+        private void ForceCleanupNotes()
+        {
+            int leftNotesDestroyed = 0;
+            int rightNotesDestroyed = 0;
+            
+            try
+            {
+                // 清理左侧Note
+                if (_noteBehaviorsLeft != null)
+                {
+                    for (int i = 0; i < _noteBehaviorsLeft.Count; i++)
+                    {
+                        if (_noteBehaviorsLeft[i] != null && _noteBehaviorsLeft[i].gameObject != null)
+                        {
+                            // 取消延迟销毁调用，避免延迟销毁冲突
+                            _noteBehaviorsLeft[i].CancelInvoke();
+                            
+                            // 立即销毁GameObject
+                            Destroy(_noteBehaviorsLeft[i].gameObject);
+                            leftNotesDestroyed++;
+                        }
+                    }
+                    
+                    // 清空左侧列表
+                    _noteBehaviorsLeft.Clear();
+                }
+                
+                // 清理右侧Note
+                if (_noteBehaviorsRight != null)
+                {
+                    for (int i = 0; i < _noteBehaviorsRight.Count; i++)
+                    {
+                        if (_noteBehaviorsRight[i] != null && _noteBehaviorsRight[i].gameObject != null)
+                        {
+                            // 取消延迟销毁调用，避免延迟销毁冲突
+                            _noteBehaviorsRight[i].CancelInvoke();
+                            
+                            // 立即销毁GameObject
+                            Destroy(_noteBehaviorsRight[i].gameObject);
+                            rightNotesDestroyed++;
+                        }
+                    }
+                    
+                    // 清空右侧列表
+                    _noteBehaviorsRight.Clear();
+                }
+                
+                // 重置索引变量
+                _leftEmitIndex = 0;
+                _rightEmitIndex = 0;
+                _leftDetectIndex = 0;
+                _rightDetectIndex = 0;
+                
+                Debug.Log($"[BattleUIWindow] Note强制清理完成 - 左侧销毁: {leftNotesDestroyed}, 右侧销毁: {rightNotesDestroyed}, 总计: {leftNotesDestroyed + rightNotesDestroyed}");
+            }
+            catch (System.Exception ex)
+            {
+                Debug.LogError($"[BattleUIWindow] Note强制清理过程中发生异常: {ex.Message}");
+                Debug.LogError($"[BattleUIWindow] 异常堆栈: {ex.StackTrace}");
+                
+                // 即使发生异常也要确保列表被清空和索引被重置
+                try
+                {
+                    _noteBehaviorsLeft?.Clear();
+                    _noteBehaviorsRight?.Clear();
+                    _leftEmitIndex = 0;
+                    _rightEmitIndex = 0;
+                    _leftDetectIndex = 0;
+                    _rightDetectIndex = 0;
+                    Debug.Log("[BattleUIWindow] 异常恢复：已重置列表和索引");
+                }
+                catch (System.Exception resetEx)
+                {
+                    Debug.LogError($"[BattleUIWindow] 异常恢复失败: {resetEx.Message}");
+                }
+            }
         }
         
         /// <summary>
